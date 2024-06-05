@@ -20,7 +20,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: radial-gradient(108.78% 108.78% at 50.02% 19.78%, #ffffff 57.29%, #eef6fe 100%);
   box-shadow:
     0px 2px 4px rgba(0, 0, 0, 0.14),
     0px 0px 2px rgba(0, 0, 0, 0.12);
@@ -165,6 +164,14 @@
   z-index: 1;
 }
 
+.selectedButton {
+  background-color: rgb(11, 74, 126);
+}
+
+.hoveredButton:hover {
+  background-color: rgb(126, 18, 18);
+}
+
 .clearChatBroomNoCosmos {
   box-sizing: border-box;
   display: flex;
@@ -306,34 +313,6 @@
   order: 1;
   align-self: stretch;
   flex-grow: 0;
-}
-
-.exectResultList {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  border-bottom: 1px solid #ccc;
-  margin-top: 12px;
-}
-
-.exectResultList:first-child {
-  margin-top: 0;
-}
-
-.exectResultList:last-child {
-  border-bottom: none;
-}
-
-.exectResultList > p {
-  display: flex;
-  flex-direction: row;
-  gap: 4px;
-  margin: 0;
-  margin-bottom: 16px;
-}
-
-.exectResultList > span {
-  font-weight: 600;
 }
 
 a {
