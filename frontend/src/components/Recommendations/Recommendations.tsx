@@ -4,6 +4,7 @@ import styles from '../../pages/chat/Chat.module.css'
 import { useNavigate } from 'react-router-dom';
 import { AppStateContext } from '../../state/AppProvider';
 import { getValuePropositions, getWalkthroughData } from '../../api';
+import { templete2, templete3 } from '../../constants/templete';
 
 const About: React.FC = () => {
     const navigate = useNavigate();
@@ -23,24 +24,30 @@ const About: React.FC = () => {
                 appStateContext?.dispatch({ type: 'SET_VALUE_PROPOSITION_LOADING', payload: true })
                 appStateContext?.dispatch({ type: 'SET_WALKTHROUGH_LOADING', payload: true })
 
-                const valuePropositionsResponse = getValuePropositions({ question: `Can you tell me 5 unique attribute of a ${selectedItem?.title}` })
-                const walkaroundResponse = getWalkthroughData({ question: `Can you give an walk around of a ${selectedItem?.title} broken out into headings of areas of the boat, ordered in a way that makes sense for giving a tour to a prospective buyer?` })
-
+                const valuePropositionsResponse = getValuePropositions({ question: templete2(selectedItem?.title) })
+                const walkaroundResponse = getWalkthroughData({ question: templete3(selectedItem?.title) })
                 const valuePropositionsData =
                 {
                     "output": "{\"value_propositions\": [{\"title\": \"TRACK FORMED fence design with high-sheen finish\", \"detail\": \"Delivers enhanced aesthetic appeal and durability\"}, {\"title\": \"10\’ SUN TRACKER QuickLift Bimini top\", \"detail\": \"Provides easy and quick protection from the sun\"}, {\"title\": \"SUN TRACKER FLARE touchscreen gauge display & 12-button switch panel\", \"detail\": \"Offers modern, easy-to-use navigational and control features\"}, {\"title\": \"Wet Sounds stereo with Bluetooth & two 6.5\\\" upholstery speakers\", \"detail\": \"Ensures high-quality audio entertainment on the water\"}, {\"title\": \"New motor & adaptor harnesses\", \"detail\": \"Improves performance and compatibility with various accessories\"}]}"
                 }
-                const walkaroundData =
+                const walkaroundData=
                 {
                     "output": "{\"value_propositions\": [{\"title\": \"Driver Console\", \"detail\": \"Features an advanced 8\” TAHOE CRUISE\® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering.\"}, {\"title\": \"Seating Capacity\", \"detail\": \"Accommodates up to 11 passengers in a feature-rich interior, ensuring comfort during full days of cruising and adventure.\"}, {\"title\": \"Entertainment System\", \"detail\": \"Equipped with a powerful KICKER\® Bluetooth stereo system and an advanced phone management station for all-day entertainment.\"}, {\"title\": \"Storage Solutions\", \"detail\": \"Plentiful storage options are available for all your gear, keeping the deck clear and organized.\"}, {\"title\": \"Water Sports Features\", \"detail\": \"Comes with a removable ski tow pylon for water sports and adventure.\"}, {\"title\": \"Swim Platforms\", \"detail\": \"Features aft swim platforms with a boarding ladder, making it easy to access the water.\"}]}"
                 }
 
-                const parsedDataValueProps = JSON.parse(valuePropositionsData?.output);
-                const valuePropositions = parsedDataValueProps?.value_propositions
-                const parsedDataWalkThrough = JSON.parse(walkaroundData?.output);
-                const walkThrough = parsedDataWalkThrough?.value_propositions
-                appStateContext?.dispatch({ type: 'SET_VALUE_PROPOSITION_STATE', payload: valuePropositions })
-                appStateContext?.dispatch({ type: 'SET_WALKTHROUGH_STATE', payload: walkThrough })
+                if (valuePropositionsData) {
+                    const parsedDataValueProps = JSON.parse(valuePropositionsData?.output);
+                    const valuePropositions = parsedDataValueProps?.value_propositions
+                    appStateContext?.dispatch({ type: 'SET_VALUE_PROPOSITION_STATE', payload: valuePropositions })
+                }
+                if (walkaroundData) {
+                    const parsedDataWalkThrough = JSON.parse(walkaroundData?.output);
+                    const walkThrough = parsedDataWalkThrough?.value_propositions
+                    appStateContext?.dispatch({ type: 'SET_WALKTHROUGH_STATE', payload: walkThrough })
+                }
+                //these calls will be removed 
+                appStateContext?.dispatch({ type: 'SET_VALUE_PROPOSITION_LOADING', payload: false })
+                appStateContext?.dispatch({ type: 'SET_WALKTHROUGH_LOADING', payload: false })
             } catch (error) {
                 appStateContext?.dispatch({ type: 'SET_VALUE_PROPOSITION_LOADING', payload: false })
                 appStateContext?.dispatch({ type: 'SET_WALKTHROUGH_LOADING', payload: false })

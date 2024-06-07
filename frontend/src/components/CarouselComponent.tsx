@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import "./carouselStyle.css"
-import { Text, Stack, mergeStyles } from '@fluentui/react';
+import { Text, Stack, mergeStyles, Spinner } from '@fluentui/react';
 import { AppStateContext } from '../state/AppProvider';
 
 const carouselContainerStyle = mergeStyles({
@@ -32,7 +32,7 @@ const titleStyle = mergeStyles({
 
 const contentStackStyle = mergeStyles({
   height: '100%',
-  display:'flex',
+  display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   padding: 20,
@@ -60,34 +60,50 @@ const responsive = {
 const CarouselComponent: React.FC = () => {
   const appStateContext = useContext(AppStateContext);
   const walkthroughData = appStateContext?.state?.walkthorugh;
-  console.log({ walkthroughData });
+  const isLoading = appStateContext?.state?.isLoadingWalkThrough
 
   return (
-    <div className={carouselContainerStyle}>
-      <Carousel
-        responsive={responsive}
-        showDots
-        infinite={false}
-        autoPlay={false}
-        arrows={false}
-        itemClass='react-multi-carousel-list'
-      >
-        {walkthroughData && walkthroughData.map((item) => (
-          <div key={item.title} className={slideStyle}>
-            <Text variant="xLarge" className={titleStyle}>
-              {item.title}
-            </Text>
-            <Stack tokens={{ childrenGap: 10 }} className={contentStackStyle}>
-              {/* <ul style={{ padding: '0 20px', margin: 0, listStyle: 'disc', display: "flex", alignItems: 'center', flexDirection: "column", marginTop: 20 }}> */}
-                <Text key={item.title} style={{ fontWeight: 500, textAlign: "justify", marginBottom: 10, marginTop: 10,fontSize:"1.25rem" }}>
-                  {item.detail}
-                </Text>
-              {/* </ul> */}
-            </Stack>
-          </div>
-        ))}
-      </Carousel>
-    </div>
+    <>
+      {isLoading ? (
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
+          <Spinner label="Loading Walk around..." />
+        </div>
+      ) : (
+        <>
+          {walkthroughData && walkthroughData?.length > 0 ? (
+            <div className={carouselContainerStyle}>
+              <Carousel
+                responsive={responsive}
+                showDots
+                infinite={false}
+                autoPlay={false}
+                arrows={false}
+                itemClass='react-multi-carousel-list'
+              >
+                {walkthroughData.map((item) => (
+                  <div key={item.title} className={slideStyle}>
+                    <Text variant="xLarge" className={titleStyle}>
+                      {item.title}
+                    </Text>
+                    <Stack tokens={{ childrenGap: 10 }} className={contentStackStyle}>
+                      {/* <ul style={{ padding: '0 20px', margin: 0, listStyle: 'disc', display: "flex", alignItems: 'center', flexDirection: "column", marginTop: 20 }}> */}
+                      <Text key={item.title} style={{ fontWeight: 500, textAlign: "justify", marginBottom: 10, marginTop: 10, fontSize: "1.25rem" }}>
+                        {item.detail}
+                      </Text>
+                      {/* </ul> */}
+                    </Stack>
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          ) : (
+            <div style={{ height: "100%", display: "flex", alignItems: "center" }}>
+              <Text style={{ color: "#FFFFFF", fontSize: "1.25rem", fontWeight: "bold" }}>No Walk Around Found</Text>
+            </div>
+          )}
+        </>
+      )}
+    </>
   );
 };
 

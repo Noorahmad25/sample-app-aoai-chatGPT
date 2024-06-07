@@ -6,3 +6,11 @@ const template = {
 };
 
 export default template;
+
+export const templete2 = (queryItem: string): string => {
+    return `Can you tell me 5 unique attribute of a ${queryItem}`
+}
+
+export const templete3 = (queryItem: string): string => {
+    return `Can you give an walk around of a ${queryItem} broken out into headings of areas of the boat, ordered in a way that makes sense for giving a tour to a prospective buyer?`
+}

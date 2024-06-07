@@ -84,17 +84,19 @@ const Home: React.FC = () => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
+
     const processTemplate = () => {
         let result = '';
     
         (Object.keys(template) as (keyof typeof template)[]).forEach((key) => {
-            const parentKey = selectedKeys.find(item => item.key === key && item.type === 'parent');
+            const parentKeys = selectedKeys.filter(item => item.key === key && item.type === 'parent');
             const childKeys = selectedKeys.filter(item => item.key === key && item.type === 'child');
     
             let processedValue = template[key];
     
-            if (parentKey) {
-                processedValue = processedValue.replace(`[${capitalizeFirstLetter(key)} Level 1]`, parentKey.value);
+            if (parentKeys.length > 0) {
+                const parentValues = parentKeys.map(item => item.value).filter(Boolean).join(', ');
+                processedValue = processedValue.replace(`[${capitalizeFirstLetter(key)} Level 1]`, parentValues);
             }
     
             const validChildKeys = childKeys.filter(item => item.promptValue);
@@ -103,15 +105,16 @@ const Home: React.FC = () => {
                 processedValue = processedValue.replace(`[${capitalizeFirstLetter(key)} Level 2]`, children);
             } else {
                 const level2Placeholder = `[${capitalizeFirstLetter(key)} Level 2]`;
-                processedValue = processedValue.replace(`,including ${level2Placeholder}`, '');
-                processedValue = processedValue.replace(`,specially ${level2Placeholder}`, '');
+                processedValue = processedValue.replace(`, including ${level2Placeholder}`, '');
+                processedValue = processedValue.replace(`, specially ${level2Placeholder}`, '');
                 processedValue = processedValue.replace(`with ${level2Placeholder}`, '');
             }
     
-            if (parentKey || validChildKeys.length > 0) {
+            if (parentKeys.length > 0 || validChildKeys.length > 0) {
                 result += processedValue.trim() + ' ';
             }
         });
+    
         result += "What are the top 3 boat models we should recommend?";
     
         return result.trim();
@@ -125,7 +128,7 @@ const Home: React.FC = () => {
     }, [selectedKeys]);
 
     const buttonDisabled = useMemo(() => {
-        return inputValue === "" && selectedKeys?.length === 0;
+        return selectedKeys?.length === 0;
     }, [selectedKeys, inputValue]);
 
     const handleSubmit = async () => {
