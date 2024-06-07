@@ -1,6 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { TextField, PrimaryButton } from '@fluentui/react';
 import { useNavigate } from 'react-router-dom';
+import { AppStateContext } from '../state/AppProvider';
+import { getRecommendations } from '../api';
 
 interface Props {
   placeholder: string,
@@ -20,9 +22,9 @@ const CustomTextField: React.FC<Props> = ({ placeholder, onButtonClick, text, se
     alignItems: 'center',
     width: '100%',
     borderRadius: '35px',
-    background: 'linear-gradient(to right,#232c30, #3a4951)',
+    backgroundColor: isTextFieldFocused ? "#313F46" : "#313F46",
     padding: '15px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    boxShadow: 'none',
     border: allowBorder ? "2px solid #378588" : "none"
   };
 
@@ -37,6 +39,7 @@ const CustomTextField: React.FC<Props> = ({ placeholder, onButtonClick, text, se
     flex: 1,
     borderRadius: '25px',
   };
+  const appStateContext = useContext(AppStateContext)
 
   const [isButtonClicked, setIsButtonClicked] = useState(false);
 
@@ -47,11 +50,26 @@ const CustomTextField: React.FC<Props> = ({ placeholder, onButtonClick, text, se
   const navigate = useNavigate();
 
   const handleNavigate = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation(); // Stop the event from propagating to other elements
-    event.preventDefault(); 
-    setIsButtonClicked(true); // Set the flag to true
-    navigate('/recommendations'); // Adjust the route as necessary
-    setIsButtonClicked(false); // Reset the flag
+    event.stopPropagation();
+    event.preventDefault();
+    setIsButtonClicked(true);
+    try {
+      appStateContext?.dispatch({ type: 'SET_RECOMMENDATIONS_LOADING', payload: true })
+      const response = getRecommendations({ question: text })
+      const data = {
+        "output": "{\"value_propositions\": [{\"title\": \"REGENCY 250 LE3 Sport\", \"detail\": \"Offers a luxurious and comfortable experience for a crew of 14, perfect for watersports with its 350-horsepower rating and ski tow pylon.\"}, {\"title\": \"TAHOE 2150\", \"detail\": \"Combines spacious luxury with sporting capability, also featuring the POWERGLIDE\® hull and ski tow pylon, ideal for families enjoying watersports.\"}, {\"title\": \"Sun Tracker Sportfish\", \"detail\": \"A versatile option that combines a fishing boat's utility with the comfort of a party barge, perfect for Lake George outings.\"}]}"
+      }
+
+      const parsedData = JSON.parse(data?.output);
+      const actuallRecommendations = parsedData?.value_propositions
+      appStateContext?.dispatch({ type: 'GET_RECOMMENDATIONS_STATE', payload: actuallRecommendations })
+      appStateContext?.dispatch({ type: 'SET_RECOMMENDATIONS_LOADING', payload: false })
+      navigate("recommendations");
+
+    } catch (error) {
+      appStateContext?.dispatch({ type: 'SET_RECOMMENDATIONS_LOADING', payload: false })
+    }
+    setIsButtonClicked(false);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -59,8 +77,6 @@ const CustomTextField: React.FC<Props> = ({ placeholder, onButtonClick, text, se
       onButtonClick?.();
     }
   };
-
-  const textFieldRef = useRef<HTMLInputElement | null>(null);
 
   const handleBlur = () => {
     if (!isButtonClicked) {
@@ -88,29 +104,30 @@ const CustomTextField: React.FC<Props> = ({ placeholder, onButtonClick, text, se
             value={text}
             resizable={false}
             multiline
-            rows={isTextFieldFocused ? 6 : 1}
+            rows={isTextFieldFocused ? 4 : 1}
             styles={{
               root: {
                 color: "#FFFFFF",
-                height: isTextFieldFocused ? "200px" : "25px",
+                height: isTextFieldFocused ? "150px" : "30px",
                 textOverflow: !isTextFieldFocused ? 'ellipsis' : 'initial',
                 overflow: 'hidden',
               },
               fieldGroup: {
                 borderRadius: '25px',
                 backgroundColor: 'inherit',
-                height: isTextFieldFocused ? "200px" : "25px",
+                margin: "-2px",
+                height: isTextFieldFocused ? "150px" : "30px",
                 textOverflow: !isTextFieldFocused ? 'ellipsis' : 'initial',
                 overflow: 'hidden',
-
+                lineHeight: isTextFieldFocused ? "1.6em" : "1,5em",
                 border: 'none',
               },
               field: {
                 backgroundColor: 'inherit',
-                height: isTextFieldFocused ? "200px" : "25px",
+                height: isTextFieldFocused ? "150px" : "30px",
                 textOverflow: !isTextFieldFocused ? 'ellipsis' : 'initial',
                 overflow: 'hidden',
-
+                lineHeight: isTextFieldFocused ? "1.6em" : "1.5em",
                 color: "#FFFFFF",
                 '::placeholder': {
                   color: '#7c909b',
@@ -121,20 +138,20 @@ const CustomTextField: React.FC<Props> = ({ placeholder, onButtonClick, text, se
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             onFocus={onFocus}
-            onBlur={handleBlur} // Use the custom handleBlur
+            onBlur={handleBlur} 
           />
         </div>
       </div>
-
       {isButtonRequired && (
         <PrimaryButton
           style={{
             width: "100%",
             marginTop: 20,
+            height: "50px",
             borderRadius: 10,
             padding: 20,
+            fontSize: "0.875rem",
             background: "black",
-            opacity: 0.5,
             border: "none"
           }}
           onMouseDown={handleMouseDown}

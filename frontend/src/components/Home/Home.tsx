@@ -1,16 +1,17 @@
 import { DefaultButton, Stack, Text } from '@fluentui/react';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { dummydata } from '../../constants/dummydata';
 import { CategoryItem, ChildItem } from '../../types/DummyDataItem';
 import CustomTextField from '../CustomTextField';
 import CustomIconButton from '../CustomIconButton';
 import { useNavigate } from 'react-router-dom';
+import { AppStateContext } from '../../state/AppProvider';
+import template from '../../constants/templete';
+import { getRecommendations } from '../../api';
 
-interface Props {
-    setPromptMessage: (value: string) => void;
-}
+const Home: React.FC = () => {
 
-const Home: React.FC<Props> = ({ setPromptMessage }) => {
+    const appStateContext = useContext(AppStateContext)
     const [inputValue, setInputValue] = useState<string>('');
     const [isTextFieldFocused, setIsTextFieldFocused] = useState<boolean>(false);
     const [showMore, setShowMore] = useState<{ [key: string]: boolean }>({});
@@ -60,8 +61,6 @@ const Home: React.FC<Props> = ({ setPromptMessage }) => {
                     }
                     return result;
                 }, undefined);
-                
-
             }
             if (existingIndex !== -1) {
                 setSelectedKeys(prevKeys => prevKeys.filter((_, index) => index !== existingIndex));
@@ -80,13 +79,6 @@ const Home: React.FC<Props> = ({ setPromptMessage }) => {
             [heading]: !prevState[heading]
         }));
     };
-
-    const template = {
-        who: "Our buyers(s) are [Who Level 1] with [Who Level 2].",
-        where: "Who boat on [Where Level 1] ,specially [Where Level 2].",
-        activities: "Who also enjoy [Activities Level 1] ,including [Activities Level 2].",
-        prioritize: "They prioritize [Prioritize Level 1]."
-    }
 
     const capitalizeFirstLetter = (string: string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -110,10 +102,9 @@ const Home: React.FC<Props> = ({ setPromptMessage }) => {
                 const children = validChildKeys.map(item => item.promptValue).join(', ');
                 processedValue = processedValue.replace(`[${capitalizeFirstLetter(key)} Level 2]`, children);
             } else {
-                // Remove placeholder and any preceding comma or word connector
                 const level2Placeholder = `[${capitalizeFirstLetter(key)} Level 2]`;
                 processedValue = processedValue.replace(`,including ${level2Placeholder}`, '');
-                processedValue = processedValue.replace(`specially ${level2Placeholder}`, '');
+                processedValue = processedValue.replace(`,specially ${level2Placeholder}`, '');
                 processedValue = processedValue.replace(`with ${level2Placeholder}`, '');
             }
     
@@ -121,15 +112,11 @@ const Home: React.FC<Props> = ({ setPromptMessage }) => {
                 result += processedValue.trim() + ' ';
             }
         });
-    
         result += "What are the top 3 boat models we should recommend?";
     
         return result.trim();
     };
     
-    
-    
-
     useEffect(() => {
         const processedTemplate = processTemplate();
         if (processedTemplate.trim() !== "" && selectedKeys?.length > 0) {
@@ -141,8 +128,23 @@ const Home: React.FC<Props> = ({ setPromptMessage }) => {
         return inputValue === "" && selectedKeys?.length === 0;
     }, [selectedKeys, inputValue]);
 
-    const handleSubmit = () => {
-        navigate("recommendations");
+    const handleSubmit = async () => {
+        try {
+            appStateContext?.dispatch({ type: 'SET_RECOMMENDATIONS_LOADING', payload: true })
+            const response = getRecommendations({ question: inputValue })
+            const data = {
+                "output": "{\"value_propositions\": [{\"title\": \"REGENCY 250 LE3 Sport\", \"detail\": \"Offers a luxurious and comfortable experience for a crew of 14, perfect for watersports with its 350-horsepower rating and ski tow pylon.\"}, {\"title\": \"TAHOE 2150\", \"detail\": \"Combines spacious luxury with sporting capability, also featuring the POWERGLIDE\® hull and ski tow pylon, ideal for families enjoying watersports.\"}, {\"title\": \"Sun Tracker Sportfish\", \"detail\": \"A versatile option that combines a fishing boat's utility with the comfort of a party barge, perfect for Lake George outings.\"}]}"
+            }
+
+            const parsedData = JSON.parse(data?.output);
+            const actuallRecommendations = parsedData?.value_propositions
+            appStateContext?.dispatch({ type: 'SET_RECOMMENDATIONS_STATE', payload: actuallRecommendations })
+            appStateContext?.dispatch({ type: 'SET_RECOMMENDATIONS_LOADING', payload: false })
+            navigate("/recommendations");
+
+        } catch (error) {
+            appStateContext?.dispatch({ type: 'SET_RECOMMENDATIONS_LOADING', payload: false })
+        }
     };
 
     return (
@@ -169,7 +171,7 @@ const Home: React.FC<Props> = ({ setPromptMessage }) => {
                     position: "relative"
                 }}
             >
-                {Object.keys(tags).map((key) => (
+                {!isTextFieldFocused && Object.keys(tags).map((key) => (
                     <React.Fragment key={key}>
                         <Stack horizontalAlign='start' style={{ width: "100%" }}>
                             <Text
@@ -203,7 +205,7 @@ const Home: React.FC<Props> = ({ setPromptMessage }) => {
                                         marginLeft: 5,
                                         marginRight: 5,
                                         marginTop: 10,
-                                        '@media (max-width: 500px)': {
+                                        '@media (max-width: 1000px)': {
                                             display: "inline-table"
                                         }
                                     }
@@ -217,7 +219,6 @@ const Home: React.FC<Props> = ({ setPromptMessage }) => {
                                             fontSize: "0.875rem",
                                             border: "none",
                                             fontWeight: 300,
-                                            fontFamily: "Inter",
                                             opacity: selectedKeys.some(selected => selected.value === tag && selected.key === key) ? 1 : 0.9,
                                             borderRadius: 15,
                                             whiteSpace: "nowrap",
@@ -238,7 +239,6 @@ const Home: React.FC<Props> = ({ setPromptMessage }) => {
                                             marginLeft: 10,
                                             marginTop: 10,
                                             display: "inline-table"
-
                                         }
                                     }}>
                                     <DefaultButton

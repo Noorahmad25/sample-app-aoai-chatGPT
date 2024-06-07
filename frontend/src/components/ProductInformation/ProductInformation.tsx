@@ -93,7 +93,7 @@ const ProductInformation: React.FC = () => {
           style={{height:"10%",position:"fixed",bottom:0}}
           styles={{ root: { width: '100%', padding: 20, flexWrap: "wrap" } }}
         >
-          <PrimaryButton style={{ width: "100%", borderRadius: 10, padding: 20, background: "black", opacity: 0.5, border: "none" }} onClick={handleNextClick}>Submit</PrimaryButton>
+          <PrimaryButton style={{ width: "100%",fontSize: "0.875rem",height:"50px", borderRadius: 10, padding: 20, background: "black", border: "none" }} onClick={handleNextClick}>Submit</PrimaryButton>
         </Stack>
       </Stack>
     </div>

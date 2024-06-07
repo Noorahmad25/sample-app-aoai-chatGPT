@@ -10,7 +10,10 @@ import {
   FrontendSettings,
   frontendSettings,
   historyEnsure,
-  historyList
+  historyList,
+  Recommendations,
+  ValuePropositions,
+  WalkThrough
 } from '../api'
 
 import { appStateReducer } from './AppReducer'
@@ -24,6 +27,12 @@ export interface AppState {
   currentChat: Conversation | null
   frontendSettings: FrontendSettings | null
   feedbackState: { [answerId: string]: Feedback.Neutral | Feedback.Positive | Feedback.Negative }
+  recommendation : Recommendations[] | null
+  valuePropositions :ValuePropositions[] | null
+  walkthorugh:WalkThrough[] | null
+  isLoadingRecommendations :boolean
+  isLoadingValuePropositions :boolean
+  isLoadingWalkThrough :boolean
 }
 
 export type Action =
@@ -44,6 +53,12 @@ export type Action =
       payload: { answerId: string; feedback: Feedback.Positive | Feedback.Negative | Feedback.Neutral }
     }
   | { type: 'GET_FEEDBACK_STATE'; payload: string }
+  | { type: 'SET_RECOMMENDATIONS_STATE'; payload: Recommendations[] }
+  | { type: 'SET_RECOMMENDATIONS_LOADING'; payload: boolean }
+  | { type: 'SET_VALUE_PROPOSITION_STATE'; payload: ValuePropositions[] }
+  | { type: 'SET_VALUE_PROPOSITION_LOADING'; payload: boolean }
+  | { type: 'SET_WALKTHROUGH_STATE'; payload: WalkThrough[] }
+  | { type: 'SET_WALKTHROUGH_LOADING'; payload: boolean }
 
 const initialState: AppState = {
   isChatHistoryOpen: false,
@@ -56,7 +71,13 @@ const initialState: AppState = {
     status: CosmosDBStatus.NotConfigured
   },
   frontendSettings: null,
-  feedbackState: {}
+  feedbackState: {},
+  recommendation:[],
+  valuePropositions:[],
+  walkthorugh:[],
+  isLoadingRecommendations:false,
+  isLoadingValuePropositions:false,
+  isLoadingWalkThrough:false
 }
 
 export const AppStateContext = createContext<

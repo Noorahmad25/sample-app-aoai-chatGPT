@@ -1,18 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { DocumentCard, DocumentCardTitle, DocumentCardDetails, Stack, Text } from '@fluentui/react';
-
-const abilities = [
-  { title: 'Speed Boost', description: 'Increases the boat’s speed by 20%.' },
-  { title: 'Enhanced Durability', description: 'Reinforced hull for increased durability.' },
-  { title: 'Advanced Navigation System', description: 'State-of-the-art navigation system for easy tracking.' },
-  { title: 'Auto-Pilot', description: 'Autonomous driving for hands-free navigation.' },
-  { title: 'Luxury Interior', description: 'High-end materials andHigh-end materials andHigh-end materials andHigh-end materials andHigh-end materials and finishes for ultimate comfortHigh-end materials and finishes for ultimate comfortHigh-end materials and finishes for ultimate comfort.' },
-];
+import { AppStateContext } from '../../state/AppProvider';
 
 const FlashCard: React.FC = () => {
+  const appStateContext = useContext(AppStateContext);
+  const valuesProps=appStateContext?.state?.valuePropositions
+
   return (
     <>
-      {abilities.map((ability, index) => (
+      { valuesProps && valuesProps.map((item, index) => (
         <DocumentCard
           key={index}
           styles={{
@@ -28,11 +24,11 @@ const FlashCard: React.FC = () => {
         >
           <Stack styles={{ root: { padding: 20, width: '100%' } }}>
             <Stack.Item>
-              <DocumentCardTitle title={ability.title} styles={{ root: { fontWeight: 'bold', textAlign: 'left', padding: 0, height: 20, color: 'white' } }} />
+              <DocumentCardTitle title={item.title} styles={{ root: { fontWeight: '500', textAlign: 'left', padding: 0, height: 20, color: 'white' ,fontSize:"1rem",whiteSpace:"nowrap",textOverflow:"ellipsis"} }} />
             </Stack.Item>
             <Stack.Item grow>
               <DocumentCardDetails styles={{ root: { marginTop: 10 } }}>
-                <Text style={{ color: 'white' }}>{ability.description}</Text>
+                <Text style={{ color: 'white' }}>{item.detail}</Text>
               </DocumentCardDetails>
             </Stack.Item>
           </Stack>

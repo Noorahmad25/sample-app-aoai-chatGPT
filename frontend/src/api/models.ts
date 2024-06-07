@@ -153,3 +153,18 @@ export enum Feedback {
   Manipulative = 'manipulative',
   OtherHarmful = 'other_harmlful'
 }
+
+export type Recommendations= {
+  title: string;
+  detail: string;
+}
+
+export type ValuePropositions= {
+  title: string;
+  detail: string; 
+}
+
+export type WalkThrough= {
+  title: string;
+  detail: string; 
+}

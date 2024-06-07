@@ -9,7 +9,26 @@ const Feedback: React.FC = () => {
     const navigate = useNavigate();
     const [selectedButton, setSelectedButton] = useState<string>("");
     const [showThankYou, setShowThankYou] = useState<boolean>(false);
+    const containerStyle: React.CSSProperties = {
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+        borderRadius: '35px',
+        padding: '15px',
+        boxShadow: 'none',
+      };
+    const textFieldStyle: React.CSSProperties = {
+        flex: 1,
+        width:"100%",
+        border: 'none',
+        outline: 'none',
+        backgroundColor: 'inherit',
+    };
 
+    const textFieldWrapperStyle: React.CSSProperties = {
+        flex: 1,
+        borderRadius: '25px',
+      };
 
     const handleFeedbackChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         setFeedback(newValue || '');
@@ -35,13 +54,13 @@ const Feedback: React.FC = () => {
             <Stack
                 horizontalAlign="center"
                 verticalAlign={showThankYou ? "center" : "start"}
-                styles={{ root: { height: '100vh', marginTop: !showThankYou ? "100px" : "0px" } }}
+                styles={{ root: { height: '100vh', marginTop: !showThankYou ? "200px" : "0px" } }}
                 tokens={{ childrenGap: 50 }}
             >
                 {showThankYou ? (
                     <Stack tokens={{ childrenGap: 10 }} horizontalAlign="center" verticalAlign='center'>
                         <Text variant="xxLarge" style={{ color: "#FFFFFF", marginBottom: 20 }}>Thank you for your response!</Text>
-                        <PrimaryButton style={{ width: "350px", borderRadius: 10, padding: 20, background: 'black', opacity: 0.5, border: "none" }} onClick={handleNaviagte}>Go to Home</PrimaryButton>
+                        <PrimaryButton style={{ width: "100%", height: "50px", borderRadius: 10, padding: 20, background: 'black', fontSize: "0.875rem", border: "none" }} onClick={handleNaviagte}>Go to Home</PrimaryButton>
                     </Stack>
                 ) : (
                     <>
@@ -50,7 +69,7 @@ const Feedback: React.FC = () => {
                         </Stack>
                         <Stack horizontal style={{ width: "350px" }} tokens={{ childrenGap: 20 }}>
                             <DefaultButton
-                                style={{ width: "50%", height: "100%", backgroundColor: selectedButton === "Like" ? "teal" : "black", borderRadius: 20, padding: 10 }}
+                                style={{ width: "50%", height: "100%", backgroundColor: selectedButton === "Like" ? "teal" : "#181e20", borderRadius: 20, padding: 10 }}
                                 onClick={() => handleIconClick("Like")}
                             >
                                 <Stack horizontalAlign='center' verticalAlign='center' tokens={{ childrenGap: 10 }}>
@@ -59,7 +78,7 @@ const Feedback: React.FC = () => {
                                 </Stack>
                             </DefaultButton>
                             <DefaultButton
-                                style={{ width: "50%", height: "100%", backgroundColor: selectedButton === "DisLike" ? "teal" : "black", borderRadius: 20, padding: 10 }}
+                                style={{ width: "50%", height: "100%", backgroundColor: selectedButton === "DisLike" ? "teal" : "#181e20", borderRadius: 20, padding: 10 }}
                                 onClick={() => handleIconClick("DisLike")}
                             >
                                 <Stack horizontalAlign='center' verticalAlign='center' tokens={{ childrenGap: 10 }}>
@@ -69,25 +88,49 @@ const Feedback: React.FC = () => {
                             </DefaultButton>
                         </Stack>
                         <TextField
-                            style={{ outline: "none" }}
                             placeholder="Anything specific you would like to share?"
                             multiline
                             resizable={false}
                             rows={5}
                             value={feedback}
+                            style={textFieldStyle}
                             onChange={handleFeedbackChange}
                             styles={{
-                                root: { width: 350, opacity: 0.3 }, fieldGroup: { borderRadius: 20, background: "black", border: "none" }, field: {
-                                    color:"white",
+                                root: {
+                                  color: "#FFFFFF",
+                                  width:"100%",
+                                  overflow: 'hidden',
+                                  background: "#232e34",
+        borderRadius:20,
+
+                                },
+                                fieldGroup: {
+                                  borderRadius: '25px',
+                                  backgroundColor: 'inherit',
+                                  margin:"-2px",
+                                  overflow: 'hidden',
+                                  border: 'none',
+                                },
+                                field: {
+                                    height: "200px",
+                                    lineHeight: "1.6em",
+                                    color: "white",
                                     padding: 20, selectors: {
                                         '::placeholder': {
                                             color: 'lightgray'
                                         }
                                     }
-                                }
-                            }}
+                                },
+                              }}
                         />
-                        <PrimaryButton style={{ width: "350px", borderRadius: 10, padding: 20, background: 'black', opacity: 0.5, border: "none" }} onClick={handleSubmit}>Submit</PrimaryButton>
+                        <Stack
+                            tokens={{ childrenGap: 20 }}
+                            horizontalAlign='center'
+                            style={{ height: "10%", position: "fixed", bottom: 0 }}
+                            styles={{ root: { width: '100%', padding: 20, flexWrap: "wrap" } }}
+                        >
+                            <PrimaryButton style={{ width: "100%", height: "50px", fontSize: "0.875rem", borderRadius: 10, padding: 20, background: 'black', border: "none" }} onClick={handleSubmit}>Submit</PrimaryButton>
+                        </Stack>
                     </>)}
             </Stack>
         </div>

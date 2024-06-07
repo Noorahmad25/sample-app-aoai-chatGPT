@@ -7,6 +7,18 @@ export const appStateReducer = (state: AppState, action: Action): AppState => {
       return { ...state, isChatHistoryOpen: !state.isChatHistoryOpen }
     case 'UPDATE_CURRENT_CHAT':
       return { ...state, currentChat: action.payload }
+    case 'SET_RECOMMENDATIONS_STATE':
+      return { ...state, recommendation: action.payload, isLoadingRecommendations: false }
+    case 'SET_RECOMMENDATIONS_LOADING':
+      return { ...state, isLoadingRecommendations: action.payload };
+    case 'SET_VALUE_PROPOSITION_STATE':
+      return { ...state, valuePropositions: action.payload, isLoadingValuePropositions: false }
+    case 'SET_VALUE_PROPOSITION_LOADING':
+      return { ...state, isLoadingValuePropositions: action.payload };
+    case 'SET_WALKTHROUGH_STATE':
+      return { ...state, walkthorugh: action.payload, isLoadingWalkThrough: false }
+    case 'SET_WALKTHROUGH_LOADING':
+      return { ...state, isLoadingWalkThrough: action.payload };
     case 'UPDATE_CHAT_HISTORY_LOADING_STATE':
       return { ...state, chatHistoryLoadingState: action.payload }
     case 'UPDATE_CHAT_HISTORY':
