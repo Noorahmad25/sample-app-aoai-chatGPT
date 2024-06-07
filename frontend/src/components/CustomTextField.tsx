@@ -62,7 +62,7 @@ const CustomTextField: React.FC<Props> = ({ placeholder, onButtonClick, text, se
 
       const parsedData = JSON.parse(data?.output);
       const actuallRecommendations = parsedData?.value_propositions
-      appStateContext?.dispatch({ type: 'GET_RECOMMENDATIONS_STATE', payload: actuallRecommendations })
+      appStateContext?.dispatch({ type: 'SET_RECOMMENDATIONS_STATE', payload: actuallRecommendations })
       appStateContext?.dispatch({ type: 'SET_RECOMMENDATIONS_LOADING', payload: false })
       navigate("recommendations");
 

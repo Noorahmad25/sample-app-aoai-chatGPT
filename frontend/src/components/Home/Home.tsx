@@ -273,7 +273,7 @@ const Home: React.FC = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     height: "15%",
-                    bottom: isTextFieldFocused ? 110 : 0,
+                    bottom: isTextFieldFocused ? 80 : 0,
                     padding: "0px 20px"
                 }}
             >

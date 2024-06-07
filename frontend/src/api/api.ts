@@ -354,12 +354,10 @@ export const historyMessageFeedback = async (messageId: string, feedback: string
 }
 
 export async function getRecommendations(payload:object): Promise<Response> {
-  const apiToken="sYnaIAKrbZBt5GlS5dadBvXyWxJCdfPg"
-  const response = await fetch('/https://dev-pf-boat-suggestion-ep.eastus.inference.ml.azure.com/score', {
+  const response = await fetch('/recommendations', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      "Authorization": "Bearer " + apiToken
     },
     body: JSON.stringify(payload)
   })
@@ -367,21 +365,23 @@ export async function getRecommendations(payload:object): Promise<Response> {
 }
 
 export async function getValuePropositions(payload:object): Promise<Response> {
-  const response = await fetch('/recommendations', {
+  const response = await fetch('/valueProposition', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
+    body: JSON.stringify(payload)
   })
   return response
 }
 
 export async function getWalkthroughData(payload:object): Promise<Response> {
-  const response = await fetch('/recommendations', {
+  const response = await fetch('/walkthrough', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
+    body: JSON.stringify(payload)
   })
   return response
 }
