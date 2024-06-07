@@ -69,7 +69,7 @@ const Layout = () => {
 
   return (
     <div className={styles.layout}>
-    {/* <BackgroundVideo/> */}
+    {/* <BackgroundVideo/>
 
       <header className={styles.header} role={'banner'}>
         <Stack horizontal verticalAlign="center" horizontalAlign="space-between">
@@ -90,8 +90,9 @@ const Layout = () => {
           </Stack>
         </Stack>
       </header>
+       */}
       <Outlet />
-      <Dialog
+      {/* <Dialog
         onDismiss={handleSharePanelDismiss}
         hidden={!isSharePanelOpen}
         styles={{
@@ -128,6 +129,7 @@ const Layout = () => {
           </div>
         </Stack>
       </Dialog>
+      */}
     </div>
   )
 }

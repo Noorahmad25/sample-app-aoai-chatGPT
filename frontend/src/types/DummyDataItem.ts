@@ -1,6 +1,10 @@
+export interface ChildItem {
+    [key: string]: string;
+}
+
 export interface CategoryItem {
     category: string;
-    child: string[];
+    child: ChildItem[];
 }
 
 export interface Tags {
@@ -8,5 +12,6 @@ export interface Tags {
     who: CategoryItem[];
     where: CategoryItem[];
     activities: CategoryItem[];
-    product :CategoryItem[]
+    prioritize: CategoryItem[];
+    // product: CategoryItem[];
 }

@@ -6,30 +6,24 @@ export const dummydata: Tags = {
         {
             category: "Family",
             child: [
-                "young kids",
-                "Pets",
-                "Accessibility",
-                "Big Family",
-                "Hosting"
+                { "Accessible": "Accessibility Concerns" },
+                { "Active Family": "Lots of activities" },
+                { "Pets": "Pets" },
+                { "Large Family": "More then 5 people" }
             ]
         },
         {
             category: "Solo",
             child: [
-                "solo 1",
-                "solo 2",
-                "solo 3",
-                "solo 4",
+                { "Hobbyist": "Less than 5 people" }
             ]
         },
         {
             category: "Social",
             child: [
-                "socail 1",
-                "socail 2",
-                "socail 3",
-                "socail 4",
-                "socail 5"
+                { "Leisure Gatherings": "Leisure gatherings" },
+                { "Large Family": "More then 5 people" },
+                { "Sports Groups": "More than 4 Sporty Friends" }
             ]
         }
     ],
@@ -37,76 +31,96 @@ export const dummydata: Tags = {
         {
             category: "Ocean",
             child: [
-                "Okeechobee",
-                "Tohopekaliga",
-                "Semiole",
-                "Georage"
+                { "Atlantic": "the Atlantic Ocean" },
+                { "Gulf": "the Gulf of Mexico" }
             ]
         },
         {
-            category: "Lake",
+            category: "Lakes",
             child: [
-                "Okeechobee alke",
-                "Tohopekaliga lake",
-                "Semiole lake",
-                "Georage lake"
+                { "Lake Okeechobee": "Lake Okeechobee" },
+                { "Lake George": "Lake George" },
+                { "Lake Apopka": "Lake Apopka" },
+                { "Lake Kissimmee": "Lake Kissimmee" },
+                { "Lake Toho": "Lake Toho" }
             ]
         },
         {
-            category: "River",
+            category: "Rivers",
             child: [
-                "Okeechobee river",
-                "Tohopekaliga river",
-                "Semiole river",
-                "Georage river"
+                { "St. Johns River": "St. Johns River" },
+                { "Suwannee River": "Suwannee River" },
+                { "Caloosahatchee River": "Caloosahatchee River" },
+                { "Peace River": "Peace River" }
             ]
         }
     ],
     activities: [
         {
-            category: "Water sport",
+            category: "Watersports",
             child: [
-                "water siking",
-                "wake boarding",
-                "Tubbing",
-                "Diving"
+                { "Skiing": "Skiing" },
+                { "Wakeboarding": "Wakeboarding" },
+                { "Tubing": "Tubing" },
+                { "Swimming": "Swimming" }
             ]
         },
         {
             category: "Leisure",
             child: [
-                "water siking leisure",
-                "wake boarding lesiure",
-                "Tubbing leisure",
-                "Diving leisure"
+                { "Cruising": "Cruising" },
+                { "Picnicking": "Picnicking" },
+                { "Swimming": "Swimming" },
+                { "Entertaining": "Entertaining" }
             ]
         },
         {
             category: "Fishing",
             child: [
-                "water siking fishing",
-                "wake boarding fishing",
-                "Tubbing fishing",
-                "Diving fishing"
+                { "Bass Fishing": "Bass Fishing" },
+                { "Competitive Fishing": "Competitive Fishing" },
+                { "Hobby Fishing": "Hobby Fishing" }
             ]
         }
     ],
-    product: [
+    prioritize: [
         {
-            category: "Tahoe",
-            child: [
-                "209",
-                "188",
-            ]
+            category: "Luxury Experience",
+            child: []
         },
         {
-            category: "Suntracker",
-            child: [
-                "199",
-                "179",
-                "178",
-                "210"
-            ]
+            category: "Versatility",
+            child: []
+        },
+        {
+            category: "Value",
+            child: []
         }
-    ]
+    ],
+    // Uncomment the following section if you need product data as well.
+    // product: [
+    //     {
+    //         category: "Tahoe",
+    //         child: [
+    //             { "209": "209" },
+    //             { "188": "188" }
+    //         ]
+    //     },
+    //     {
+    //         category: "Regency",
+    //         child: [
+    //             { "239": "239" },
+    //             { "148": "148" }
+    //         ]
+    //     },
+    //     {
+    //         category: "Suntracker",
+    //         child: [
+    //             { "199": "199" },
+    //             { "179": "179" },
+    //             { "178": "178" },
+    //             { "210": "210" }
+    //         ]
+    //     }
+    // ]
 };

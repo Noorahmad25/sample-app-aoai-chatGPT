@@ -18,21 +18,16 @@ const ProductInformation: React.FC = () => {
     navigate("/feedback");
   };
 
-  // Define button styles inside the component
-  const buttonStyles = mergeStyles({
-
-  });
-
   return (
     <div className={styles.chatContainer}>
-      <Stack horizontalAlign="center" styles={{ root: { height: '100vh', padding: 20, width: "100%" } }}>
-        <Stack horizontal tokens={{ childrenGap: 10 }} style={{ marginBottom: 20 }}>
+      <Stack horizontalAlign="center" styles={{ root: { height: '100vh', padding: 20,marginTop:50, width: "100%" } }}>
+        <Stack horizontal tokens={{ childrenGap: 10 }} style={{ marginBottom: 10,height:"8%",width:"100%",padding:"0px 15px" }}>
           <PrimaryButton
             onClick={() => handleOptionClick('FlashCard')}
             styles={{
               root: {
                 height: 50,
-                width: 150,
+                width: "50%",
                 background: "transparent",
                 borderRadius: 5,
                 color: '#FFFFFF',
@@ -61,7 +56,7 @@ const ProductInformation: React.FC = () => {
             styles={{
               root: {
                 height: 50,
-                width: 150,
+                width: "50%",
                 background: "transparent",
                 borderRadius: 5,
                 border: `1px solid ${selectedOption === 'WalkAround' ? 'black' : 'transparent'}`,
@@ -86,13 +81,19 @@ const ProductInformation: React.FC = () => {
             <Text style={{ color: "#FFFFFF", marginLeft: 5 }} >{"Walk Around"}</Text>
           </PrimaryButton>
         </Stack>
+        <Stack
+          style={{height:"82%",width:"100%",display:"flex",flexDirection:"column",flexWrap:"wrap",flexFlow:"column",overflowY:"auto",alignItems:"center"}}
+        tokens={{childrenGap:10}}
+        >
         {selectedOption === 'WalkAround' ? <WalkAround /> : <FlashCard />}
+        </Stack>
         <Stack
           tokens={{ childrenGap: 20 }}
           horizontalAlign='center'
+          style={{height:"10%",position:"fixed",bottom:0}}
           styles={{ root: { width: '100%', padding: 20, flexWrap: "wrap" } }}
         >
-          <PrimaryButton style={{ width: "100%", maxWidth: "350px", borderRadius: 10, padding: 20, background: "black", opacity: 0.5, border: "none" }} onClick={handleNextClick}>Submit</PrimaryButton>
+          <PrimaryButton style={{ width: "100%", borderRadius: 10, padding: 20, background: "black", opacity: 0.5, border: "none" }} onClick={handleNextClick}>Submit</PrimaryButton>
         </Stack>
       </Stack>
     </div>

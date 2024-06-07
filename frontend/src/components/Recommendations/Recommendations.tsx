@@ -41,9 +41,9 @@ const About: React.FC = () => {
             >
                 <Stack
                     tokens={{ childrenGap: 20 }}
-                    styles={{ root: { width: '100%', padding: 20 } }}
+                    styles={{ root: { width: '100%', padding: 20 ,marginTop:10} }}
                 >
-                    <Text style={{color:"white"}} variant="xLarge">Top Recommendations for this store</Text>
+                    <Text style={{color:"white",marginBottom:20}} variant="xLarge">Top Recommendations for this store</Text>
                     {dummyData.map((item, index) => (
                         <DefaultButton key={index} styles={{ root: { width: '100%', height: 130, borderRadius: 30 ,backgroundColor:"#EEE"} }} onClick={handleBoatSelection}>
                             <Stack horizontal verticalAlign="center" tokens={{ childrenGap: 10 }} style={{ width: "100%" }}>

@@ -1,7 +1,7 @@
-import { DefaultButton, Stack, Text, IconButton, PrimaryButton } from '@fluentui/react';
-import React, { useEffect, useState } from 'react';
+import { DefaultButton, Stack, Text } from '@fluentui/react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { dummydata } from '../../constants/dummydata';
-import { CategoryItem } from '../../types/DummyDataItem';
+import { CategoryItem, ChildItem } from '../../types/DummyDataItem';
 import CustomTextField from '../CustomTextField';
 import CustomIconButton from '../CustomIconButton';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +10,12 @@ interface Props {
     setPromptMessage: (value: string) => void;
 }
 
-
 const Home: React.FC<Props> = ({ setPromptMessage }) => {
     const [inputValue, setInputValue] = useState<string>('');
+    const [isTextFieldFocused, setIsTextFieldFocused] = useState<boolean>(false);
+    const [showMore, setShowMore] = useState<{ [key: string]: boolean }>({});
+    const [selectedKeys, setSelectedKeys] = useState<{ key: string, value: string, type: 'parent' | 'child',promptValue:string }[]>([]);
+
     const navigate = useNavigate();
     const [tags, setTags] = useState<{ [key: string]: string[] }>(() => {
         const initialTags: { [key: string]: string[] } = {};
@@ -25,43 +28,50 @@ const Home: React.FC<Props> = ({ setPromptMessage }) => {
         return initialTags;
     });
 
-    const [showMore, setShowMore] = useState<{ [key: string]: boolean }>({});
-    const [selectedKeys, setSelectedKeys] = useState<{ key: string, value: string, type: 'parent' | 'child' }[]>([]);
-
     const handleGroupSelection = (key: string, tag: string) => {
         if (Object.keys(dummydata).includes(key)) {
             const categoryArray = (dummydata as any)[key];
-            const selectedCategory = categoryArray.find((categoryItem: CategoryItem) => categoryItem.category === tag);
+            const selectedCategory = categoryArray.find((categoryItem: CategoryItem) => categoryItem.category === tag && categoryItem?.child?.length > 0);
 
             setTags(prevTags => {
                 const updatedTags = { ...prevTags };
 
                 if (selectedCategory) {
                     const categoryIndex = updatedTags[key].indexOf(tag);
-                    console.log({ categoryIndex, tag, selectedCategory });
                     if (categoryIndex !== -1) {
-                        updatedTags[key].splice(categoryIndex, 1, ...selectedCategory.child);
+                        const childTags = selectedCategory.child.map((child: ChildItem) => Object.keys(child)[0]);
+                        updatedTags[key].splice(categoryIndex, 1, ...childTags);
                     }
                 }
 
                 return updatedTags;
             });
-            const type = selectedCategory ? 'parent' : 'child';
-            const existingIndex = selectedKeys.findIndex(item => item.key === key && item.value === tag);
 
+            const type = selectedCategory || key === "prioritize" ? 'parent' : 'child';
+            const existingIndex = selectedKeys.findIndex(item => item.key === key && item.value === tag);
+            let promptValue: string;
+            if (type === "child") {
+                const matchingChild = categoryArray.reduce((result: string | undefined, categoryItem: CategoryItem) => {
+                    if (result) return result; 
+                    const matchingChild = categoryItem.child.find((child: ChildItem) => Object.keys(child)[0] === tag);
+                    if (matchingChild) {
+                        promptValue = Object.values(matchingChild)[0]; 
+                        return Object.values(matchingChild)[0]; 
+                    }
+                    return result;
+                }, undefined);
+                
+
+            }
             if (existingIndex !== -1) {
                 setSelectedKeys(prevKeys => prevKeys.filter((_, index) => index !== existingIndex));
             } else {
                 setSelectedKeys(prevKeys => [
                     ...prevKeys,
-                    { key, value: tag, type }
+                    { key, value: tag, type, promptValue: promptValue }
                 ]);
             }
         }
-    };
-
-    const handleSave = () => {
-        navigate("recommendations")
     };
 
     const toggleShowMore = (heading: string) => {
@@ -71,70 +81,146 @@ const Home: React.FC<Props> = ({ setPromptMessage }) => {
         }));
     };
 
-    const createStringLiterals = () => {
-        const parentKeys = selectedKeys.filter(key => key.type === 'parent');
-        const uniqueParents = Array.from(new Set(parentKeys.map(key => key.key)));
-        return uniqueParents.map(parent => {
-            const children = selectedKeys
-                .filter(key => key.type === 'child' && key.key === parent)
-                .map(key => key.key)
-                .join(', ');
-            return `From section ${parent}, you selected: [${children}]`;
-        }).join('\n');
+    const template = {
+        who: "Our buyers(s) are [Who Level 1] with [Who Level 2].",
+        where: "Who boat on [Where Level 1] ,specially [Where Level 2].",
+        activities: "Who also enjoy [Activities Level 1] ,including [Activities Level 2].",
+        prioritize: "They prioritize [Prioritize Level 1]."
+    }
+
+    const capitalizeFirstLetter = (string: string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
+    const processTemplate = () => {
+        let result = '';
+    
+        (Object.keys(template) as (keyof typeof template)[]).forEach((key) => {
+            const parentKey = selectedKeys.find(item => item.key === key && item.type === 'parent');
+            const childKeys = selectedKeys.filter(item => item.key === key && item.type === 'child');
+    
+            let processedValue = template[key];
+    
+            if (parentKey) {
+                processedValue = processedValue.replace(`[${capitalizeFirstLetter(key)} Level 1]`, parentKey.value);
+            }
+    
+            const validChildKeys = childKeys.filter(item => item.promptValue);
+            if (validChildKeys.length > 0) {
+                const children = validChildKeys.map(item => item.promptValue).join(', ');
+                processedValue = processedValue.replace(`[${capitalizeFirstLetter(key)} Level 2]`, children);
+            } else {
+                // Remove placeholder and any preceding comma or word connector
+                const level2Placeholder = `[${capitalizeFirstLetter(key)} Level 2]`;
+                processedValue = processedValue.replace(`,including ${level2Placeholder}`, '');
+                processedValue = processedValue.replace(`specially ${level2Placeholder}`, '');
+                processedValue = processedValue.replace(`with ${level2Placeholder}`, '');
+            }
+    
+            if (parentKey || validChildKeys.length > 0) {
+                result += processedValue.trim() + ' ';
+            }
+        });
+    
+        result += "What are the top 3 boat models we should recommend?";
+    
+        return result.trim();
+    };
+    
+    
+    
+
     useEffect(() => {
-        const stringLiterals = createStringLiterals();
-        console.log(stringLiterals);
-        setPromptMessage(stringLiterals);
+        const processedTemplate = processTemplate();
+        if (processedTemplate.trim() !== "" && selectedKeys?.length > 0) {
+            setInputValue(processedTemplate);
+        }
     }, [selectedKeys]);
-    console.log({ showMore })
+
+    const buttonDisabled = useMemo(() => {
+        return inputValue === "" && selectedKeys?.length === 0;
+    }, [selectedKeys, inputValue]);
 
     const handleSubmit = () => {
         navigate("recommendations");
     };
+
     return (
         <Stack
             horizontalAlign="center"
-            styles={{ root: { height: '100vh', marginBottom: 20, marginTop: 20 } }}
+            style={{
+                width: "100%",
+                height: "100%",
+                padding: "0px 20px 0px 20px",
+            }}
         >
             <Stack
                 tokens={{ childrenGap: 20 }}
-                styles={{
-                    root: {
-                        width: '100%',padding: 20, flexWrap: "wrap",
-
-                        '@media (max-width: 500px)': {
-                            minWidth: "400px", maxWidth: "400px"
-                        }
-                    }
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    height: "80%",
+                    maxHeight: "80%",
+                    width: "100%",
+                    marginTop: 50,
+                    opacity: isTextFieldFocused ? 0 : 1,
+                    overflowY: "auto",
+                    position: "relative"
                 }}
             >
                 {Object.keys(tags).map((key) => (
                     <React.Fragment key={key}>
-                        <Stack>
-                            <Text style={{ color: "grey", textTransform: "capitalize" }} variant="medium">{key === "who" || key === "where" ? `${key}?` : key}</Text>
+                        <Stack horizontalAlign='start' style={{ width: "100%" }}>
+                            <Text
+                                style={{
+                                    color: "#819188",
+                                    textTransform: "capitalize",
+                                    marginLeft: 5,
+                                    fontSize: "1.25rem",
+                                    fontWeight: "500"
+                                }}
+                                variant="medium"
+                            >
+                                {key === "who" || key === "where" ? `${key}?` : key}
+                            </Text>
                         </Stack>
-                        <Stack horizontal tokens={{ childrenGap: 20 }} wrap styles={{ root: { gap: 10, justifyContent: "space-between" } }}>
-                            {(tags[key].slice(0, showMore[key] ? tags[key]?.length : 5)).map((tag, index) => (
+                        <Stack
+                            horizontal
+                            style={{
+                                width: "100%",
+                                display: "block",
+                                alignItems: "flex-start",
+                                justifyContent: "flex-start",
+                                marginBottom: 10,
+                                marginTop: 10,
+                                flexWrap: 'wrap'
+                            }}
+                        >
+                            {tags[key].slice(0, showMore[key] ? tags[key]?.length : 5).map((tag, index) => (
                                 <Stack.Item key={index} grow={1} disableShrink styles={{
                                     root: {
-                                        width: "0%",
+                                        marginLeft: 5,
+                                        marginRight: 5,
+                                        marginTop: 10,
                                         '@media (max-width: 500px)': {
-                                            minWidth: "100px", maxWidth: "80px"
+                                            display: "inline-table"
                                         }
                                     }
                                 }}>
                                     <DefaultButton
                                         style={{
-                                            height: "40px",
-                                            width: "100%",
-                                            backgroundColor: selectedKeys.some(selected => selected.value === tag && selected.key === key) ? "green" : 'black',
+                                            height: "50px",
+                                            padding: "0px 25px",
+                                            backgroundColor: selectedKeys.some(selected => selected.value === tag && selected.key === key) ? "black" : '#101417',
                                             color: "#FFFFFF",
-                                            fontSize: "0.75rem",
+                                            fontSize: "0.875rem",
                                             border: "none",
-                                            opacity: 0.5,
-                                            borderRadius: 10
+                                            fontWeight: 300,
+                                            fontFamily: "Inter",
+                                            opacity: selectedKeys.some(selected => selected.value === tag && selected.key === key) ? 1 : 0.9,
+                                            borderRadius: 15,
+                                            whiteSpace: "nowrap",
                                         }}
                                         onClick={() => typeof tag === 'string' && handleGroupSelection(key, tag)}
                                     >
@@ -143,23 +229,32 @@ const Home: React.FC<Props> = ({ setPromptMessage }) => {
                                 </Stack.Item>
                             ))}
                             {tags[key].length > 5 && (
-                                <Stack.Item grow={1} disableShrink styles={{ root: { minWidth: "80px", maxWidth: "80px" } }}>
-                                    <IconButton
-                                        iconProps={{ iconName: showMore[key] ? 'CalculatorSubtract' : 'Add' }}
-                                        title={showMore[key] ? 'View Less' : 'View More'}
-                                        ariaLabel={showMore[key] ? 'View Less' : 'View More'}
-                                        onClick={() => toggleShowMore(key)}
+                                <Stack.Item grow={1}
+                                    disableShrink
+                                    styles={{
+                                        root: {
+                                            minWidth: "90px",
+                                            maxWidth: "90px",
+                                            marginLeft: 10,
+                                            marginTop: 10,
+                                            display: "inline-table"
+
+                                        }
+                                    }}>
+                                    <DefaultButton
                                         styles={{
                                             root: {
-                                                height: "40px",
-                                                width: "80%",
+                                                height: "50px",
                                                 backgroundColor: 'transparent',
-                                                color: "#FFFFFF",
-                                                border: "2px solid black",
+                                                color: "#819188",
+                                                border: "1px solid black",
                                                 borderRadius: 10
                                             }
                                         }}
-                                    />
+                                        onClick={() => toggleShowMore(key)}
+                                    >
+                                        {showMore[key] ? "Less" : "More"}
+                                    </DefaultButton>
                                 </Stack.Item>
                             )}
                         </Stack>
@@ -169,14 +264,33 @@ const Home: React.FC<Props> = ({ setPromptMessage }) => {
             <Stack
                 tokens={{ childrenGap: 20 }}
                 horizontalAlign='center'
-                styles={{ root: { width: '100%', marginTop:50,padding: 20, flexWrap: "wrap" } }}
+                style={{
+                    width: "100%",
+                    position: "fixed",
+                    zIndex: 99999,
+                    display: "flex",
+                    flexDirection: isTextFieldFocused ? "column" : "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "15%",
+                    bottom: isTextFieldFocused ? 110 : 0,
+                    padding: "0px 20px"
+                }}
             >
-                <CustomTextField placeholder='Anything else?' allowBorder={false} onButtonClick={handleSave} text={inputValue} setText={setInputValue} />
-                <PrimaryButton style={{ width: "100%",maxWidth:"350px", borderRadius: 10, padding: 20, background: "black",opacity:0.5, border: "none" }} onClick={handleSubmit}>Submit</PrimaryButton>
-
+                <CustomTextField
+                    placeholder='Anything else?'
+                    allowBorder={false}
+                    text={inputValue}
+                    setText={setInputValue}
+                    isButtonRequired={isTextFieldFocused}
+                    onFocus={() => setIsTextFieldFocused(true)} // Set focused state on focus
+                    onBlur={() => setIsTextFieldFocused(false)}
+                    isTextFieldFocused={isTextFieldFocused} // Remove focused state on blur
+                />
+                {!isTextFieldFocused &&
+                    <CustomIconButton onButtonClick={handleSubmit} disabled={buttonDisabled} />
+                }
             </Stack>
-
-
         </Stack>
     );
 };

@@ -771,7 +771,7 @@ const Chat = () => {
       ) : (
         <div className={styles.chatContainer}>
         {showSplash ? (
-          <SplashScreen logo={logo} duration={3000} onTimeout={handleTimeout} />
+          <SplashScreen logo={logo} duration={500} onTimeout={handleTimeout} />
         ) : (
           <>
             {userInfo && userInfo.length > 0 ? (

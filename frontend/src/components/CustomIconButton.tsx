@@ -1,15 +1,19 @@
 import React from 'react';
 import { IconButton } from '@fluentui/react';
-
-const CustomIconButton: React.FC = () => {
+interface Props {
+  onButtonClick?: () => void;
+  disabled?: boolean
+}
+const CustomIconButton: React.FC<Props> = ({ onButtonClick, disabled }) => {
 
 
   return (
     <IconButton
-      iconProps={{ iconName: 'Send' }} 
+      iconProps={{ iconName: 'Send',style: {color: disabled ? 'black' : 'white' } }}
       ariaLabel="Send"
-      onClick={()=>alert('Send button clicked')}
-      style={{ color: 'white',marginTop:40,background:"black",padding:30,borderRadius:50 }}
+      disabled={disabled}
+      onClick={onButtonClick}
+      style={{  background: disabled ? "transparent" : "black", marginLeft:5,padding: 28, border: disabled ? "1px solid black" : "none", borderRadius: 50, marginTop: 0 }}
     />
   );
 };
