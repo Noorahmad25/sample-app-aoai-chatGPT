@@ -9,6 +9,7 @@ const UserInfo: React.FC = () => {
     width: '100%',
     borderRadius: '35px',
     padding: '15px',
+    backgroundColor:"#313F46",
     boxShadow: 'none',
     border: "2px solid #378588"
   };
@@ -34,6 +35,12 @@ const UserInfo: React.FC = () => {
     const dataToSave = { name: inputValue, id: 4 };
     localStorage.setItem('userInfo', JSON.stringify([dataToSave]));
     window.location.reload();
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (event.key === 'Enter') {
+      handleSave?.();
+    }
   };
 
   return (
@@ -68,6 +75,7 @@ const UserInfo: React.FC = () => {
               }}
               style={textFieldStyle}
               onChange={handleChange}
+              onKeyDown={handleKeyDown}
             />
           </div>
           <IconButton
