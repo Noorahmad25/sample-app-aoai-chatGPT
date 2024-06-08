@@ -1,38 +1,89 @@
 import * as React from 'react';
-import { ComboBox, DefaultButton, Stack, TextField, IComboBoxOption, IComboBox } from '@fluentui/react';
-import CustomTextField from '../CustomTextField';
-import { useNavigate } from 'react-router-dom';
+import { Stack, TextField, IconButton } from '@fluentui/react';
 
-interface FormData {
-  location: string;
-  username: string;
-}
 
 const UserInfo: React.FC = () => {
-  const [formData, setFormData] = React.useState<FormData>({ location: '', username: '' });
-  const [inputValue, setInputValue] = React.useState<string>('');
-const navigate=useNavigate();
-  const handleLocationChange = (event: React.FormEvent<IComboBox>, option?: IComboBoxOption) => {
-    if (option) {
-      setFormData({ ...formData, location: option.key.toString() });
-    }
+  const containerStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    borderRadius: '35px',
+    padding: '15px',
+    boxShadow: 'none',
+    border: "2px solid #378588"
   };
 
-  const handleUsernameChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-    if (newValue !== undefined) {
-      setFormData({ ...formData, username: newValue });
-    }
+  const textFieldStyle: React.CSSProperties = {
+    flex: 1,
+    border: 'none',
+    outline: 'none',
+    backgroundColor: 'inherit',
   };
+
+  const textFieldWrapperStyle: React.CSSProperties = {
+    flex: 1,
+    borderRadius: '25px',
+  };
+  const [inputValue, setInputValue] = React.useState<string>('');
+
+  const handleChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+    setInputValue(newValue || "")
+  }
 
   const handleSave = () => {
-    const dataToSave = { name:inputValue, id: 4 };
+    const dataToSave = { name: inputValue, id: 4 };
     localStorage.setItem('userInfo', JSON.stringify([dataToSave]));
     window.location.reload();
   };
 
   return (
     <Stack tokens={{ childrenGap: 20 }} styles={{ root: { width: 350, margin: 'auto' } }}>
-      <CustomTextField placeholder='Enter your Full Name' allowBorder={true} onButtonClick={handleSave} text={inputValue} setText={setInputValue} />
+      <div style={{ display: "flex", alignItems: "center", flexDirection: "column", width: "100%" }}>
+        <div style={containerStyle}>
+          <div style={textFieldWrapperStyle}>
+            <TextField
+              placeholder={"Enter your Full Name"}
+              borderless
+              value={inputValue}
+              styles={{
+                root: {
+                  color: "#FFFFFF",
+                  overflow: 'hidden',
+                },
+                fieldGroup: {
+                  borderRadius: '25px',
+                  backgroundColor: 'inherit',
+                  margin: "-2px",
+                  overflow: 'hidden',
+                  border: 'none',
+                },
+                field: {
+                  backgroundColor: 'inherit',
+                  overflow: 'hidden',
+                  color: "#FFFFFF",
+                  '::placeholder': {
+                    color: '#7c909b',
+                  },
+                },
+              }}
+              style={textFieldStyle}
+              onChange={handleChange}
+            />
+          </div>
+          <IconButton
+            iconProps={{ iconName: 'Send' }}
+            ariaLabel="Send"
+            styles={{
+              root: {
+                backgroundColor: 'transparent',
+                color: "#FFFFFF",
+                borderRadius: 10
+              }
+            }}
+            onClick={handleSave}
+          />
+        </div>
+      </div>
     </Stack>
   );
 };
