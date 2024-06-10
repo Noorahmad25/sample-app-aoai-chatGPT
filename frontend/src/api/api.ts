@@ -354,10 +354,12 @@ export const historyMessageFeedback = async (messageId: string, feedback: string
 }
 
 export async function getRecommendations(payload:object): Promise<Response> {
-  const response = await fetch('/recommendations', {
+  const key='Rn2VC8PWhOjssJtaDgsirHzuZKesKfi8'
+  const response = await fetch('https://dev-pf-boat-suggestion-ep10.eastus.inference.ml.azure.com/score', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      "Authorization": `Bearer ${key}`,
     },
     body: JSON.stringify(payload)
   })

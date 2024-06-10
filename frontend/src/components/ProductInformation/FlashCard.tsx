@@ -7,7 +7,6 @@ const FlashCard: React.FC = () => {
   const valuesProps=appStateContext?.state?.valuePropositions
   const isLoading=appStateContext?.state?.isLoadingValuePropositions
 
-
   return (
     <>
       {isLoading ? (

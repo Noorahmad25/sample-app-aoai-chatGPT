@@ -775,7 +775,7 @@ const Chat = () => {
         ) : (
           <>
             {userInfo && userInfo.length > 0 ? (
-              <Home setPromptMessage={setPromptMessage} />
+              <Home/>
 
             ) : (
               <UserInfo />

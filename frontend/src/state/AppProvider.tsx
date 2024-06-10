@@ -33,6 +33,9 @@ export interface AppState {
   isLoadingRecommendations :boolean
   isLoadingValuePropositions :boolean
   isLoadingWalkThrough :boolean
+  conversationId: number | null
+  promptvalue:string | null
+  selectedBoat:string
 }
 
 export type Action =
@@ -59,6 +62,10 @@ export type Action =
   | { type: 'SET_VALUE_PROPOSITION_LOADING'; payload: boolean }
   | { type: 'SET_WALKTHROUGH_STATE'; payload: WalkThrough[] }
   | { type: 'SET_WALKTHROUGH_LOADING'; payload: boolean }
+  | { type: 'SET_CONVERSATION_ID'; payload: number }
+  | { type: 'SET_PROMPT_VALUE'; payload: string }
+  | { type: 'SET_SELECTED_BOAT'; payload: string }
+  
 
 const initialState: AppState = {
   isChatHistoryOpen: false,
@@ -77,7 +84,10 @@ const initialState: AppState = {
   walkthorugh:[],
   isLoadingRecommendations:false,
   isLoadingValuePropositions:false,
-  isLoadingWalkThrough:false
+  isLoadingWalkThrough:false,
+  conversationId: null,
+  promptvalue:null,
+  selectedBoat:''
 }
 
 export const AppStateContext = createContext<

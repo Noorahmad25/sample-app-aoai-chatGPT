@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Text, Stack, DefaultButton, Image, Spinner, PrimaryButton } from '@fluentui/react';
 import styles from '../../pages/chat/Chat.module.css'
 import { useNavigate } from 'react-router-dom';
 import { AppStateContext } from '../../state/AppProvider';
-import { getValuePropositions, getWalkthroughData } from '../../api';
-import { templete2, templete3 } from '../../constants/templete';
+import { getRecommendations } from '../../api';
 
 const About: React.FC = () => {
     const navigate = useNavigate();
@@ -12,6 +11,29 @@ const About: React.FC = () => {
     const [selectedItem, setSelectedItem] = useState<any>(null);
     const dummyData = appStateContext?.state?.recommendation;
     const isLoading = appStateContext?.state?.isLoadingRecommendations;
+    const promptValue = appStateContext?.state?.promptvalue
+
+    const fetch = async () => {
+        try {
+            appStateContext?.dispatch({ type: 'SET_RECOMMENDATIONS_LOADING', payload: true })
+            const response = getRecommendations({ question: promptValue })
+            const data = {
+                "output": "{\"value_propositions\": [{\"title\": \"REGENCY 250 LE3 Sport\", \"detail\": \"Offers a luxurious and comfortable experience for a crew of 14, perfect for watersports with its 350-horsepower rating and ski tow pylon.\"}, {\"title\": \"TAHOE 2150\", \"detail\": \"Combines spacious luxury with sporting capability, also featuring the POWERGLIDE\® hull and ski tow pylon, ideal for families enjoying watersports.\"}, {\"title\": \"Sun Tracker Sportfish\", \"detail\": \"A versatile option that combines a fishing boat's utility with the comfort of a party barge, perfect for Lake George outings.\"}]}"
+            }
+
+            const parsedData = JSON.parse(data?.output);
+            const actuallRecommendations = parsedData?.value_propositions
+            appStateContext?.dispatch({ type: 'SET_RECOMMENDATIONS_STATE', payload: actuallRecommendations })
+            appStateContext?.dispatch({ type: 'SET_RECOMMENDATIONS_LOADING', payload: false })
+            appStateContext?.dispatch({ type: 'SET_CONVERSATION_ID', payload: 0 })
+        } catch (error) {
+            appStateContext?.dispatch({ type: 'SET_RECOMMENDATIONS_LOADING', payload: false })
+        }
+    }
+
+    useEffect(() => {
+        fetch()
+    }, [])
 
     const handleBoatSelection = (item: any): void => {
         setSelectedItem(item);
@@ -19,41 +41,10 @@ const About: React.FC = () => {
     console.log({ selectedItem })
     const handleNextClick = (): void => {
         if (selectedItem) {
+            appStateContext?.dispatch({ type: 'SET_SELECTED_BOAT', payload: selectedItem?.title })
 
-            try {
-                appStateContext?.dispatch({ type: 'SET_VALUE_PROPOSITION_LOADING', payload: true })
-                appStateContext?.dispatch({ type: 'SET_WALKTHROUGH_LOADING', payload: true })
-
-                const valuePropositionsResponse = getValuePropositions({ question: templete2(selectedItem?.title) })
-                const walkaroundResponse = getWalkthroughData({ question: templete3(selectedItem?.title) })
-                const valuePropositionsData =
-                {
-                    "output": "{\"value_propositions\": [{\"title\": \"TRACK FORMED fence design with high-sheen finish\", \"detail\": \"Delivers enhanced aesthetic appeal and durability\"}, {\"title\": \"10\’ SUN TRACKER QuickLift Bimini top\", \"detail\": \"Provides easy and quick protection from the sun\"}, {\"title\": \"SUN TRACKER FLARE touchscreen gauge display & 12-button switch panel\", \"detail\": \"Offers modern, easy-to-use navigational and control features\"}, {\"title\": \"Wet Sounds stereo with Bluetooth & two 6.5\\\" upholstery speakers\", \"detail\": \"Ensures high-quality audio entertainment on the water\"}, {\"title\": \"New motor & adaptor harnesses\", \"detail\": \"Improves performance and compatibility with various accessories\"}]}"
-                }
-                const walkaroundData=
-                {
-                    "output": "{\"value_propositions\": [{\"title\": \"Driver Console\", \"detail\": \"Features an advanced 8\” TAHOE CRUISE\® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering.\"}, {\"title\": \"Seating Capacity\", \"detail\": \"Accommodates up to 11 passengers in a feature-rich interior, ensuring comfort during full days of cruising and adventure.\"}, {\"title\": \"Entertainment System\", \"detail\": \"Equipped with a powerful KICKER\® Bluetooth stereo system and an advanced phone management station for all-day entertainment.\"}, {\"title\": \"Storage Solutions\", \"detail\": \"Plentiful storage options are available for all your gear, keeping the deck clear and organized.\"}, {\"title\": \"Water Sports Features\", \"detail\": \"Comes with a removable ski tow pylon for water sports and adventure.\"}, {\"title\": \"Swim Platforms\", \"detail\": \"Features aft swim platforms with a boarding ladder, making it easy to access the water.\"}]}"
-                }
-
-                if (valuePropositionsData) {
-                    const parsedDataValueProps = JSON.parse(valuePropositionsData?.output);
-                    const valuePropositions = parsedDataValueProps?.value_propositions
-                    appStateContext?.dispatch({ type: 'SET_VALUE_PROPOSITION_STATE', payload: valuePropositions })
-                }
-                if (walkaroundData) {
-                    const parsedDataWalkThrough = JSON.parse(walkaroundData?.output);
-                    const walkThrough = parsedDataWalkThrough?.value_propositions
-                    appStateContext?.dispatch({ type: 'SET_WALKTHROUGH_STATE', payload: walkThrough })
-                }
-                //these calls will be removed 
-                appStateContext?.dispatch({ type: 'SET_VALUE_PROPOSITION_LOADING', payload: false })
-                appStateContext?.dispatch({ type: 'SET_WALKTHROUGH_LOADING', payload: false })
-            } catch (error) {
-                appStateContext?.dispatch({ type: 'SET_VALUE_PROPOSITION_LOADING', payload: false })
-                appStateContext?.dispatch({ type: 'SET_WALKTHROUGH_LOADING', payload: false })
-
-            }
             navigate("/productInfo");
+
 
         }
     }

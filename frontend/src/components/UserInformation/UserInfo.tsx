@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Stack, TextField, IconButton } from '@fluentui/react';
+import uuid from 'react-uuid';
 
 
 const UserInfo: React.FC = () => {
@@ -32,7 +33,7 @@ const UserInfo: React.FC = () => {
   }
 
   const handleSave = () => {
-    const dataToSave = { name: inputValue, id: 4 };
+    const dataToSave = { name: inputValue, id: uuid() };
     localStorage.setItem('userInfo', JSON.stringify([dataToSave]));
     window.location.reload();
   };

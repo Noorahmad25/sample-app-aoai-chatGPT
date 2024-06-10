@@ -19,6 +19,12 @@ export const appStateReducer = (state: AppState, action: Action): AppState => {
       return { ...state, walkthorugh: action.payload, isLoadingWalkThrough: false }
     case 'SET_WALKTHROUGH_LOADING':
       return { ...state, isLoadingWalkThrough: action.payload };
+    case 'SET_CONVERSATION_ID':
+      return { ...state, conversationId: action.payload };
+    case 'SET_PROMPT_VALUE':
+      return { ...state, promptvalue: action.payload };
+    case 'SET_SELECTED_BOAT':
+      return { ...state, selectedBoat: action.payload };
     case 'UPDATE_CHAT_HISTORY_LOADING_STATE':
       return { ...state, chatHistoryLoadingState: action.payload }
     case 'UPDATE_CHAT_HISTORY':

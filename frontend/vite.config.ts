@@ -12,7 +12,10 @@ export default defineConfig({
   server: {
     proxy: {
       '/ask': 'http://localhost:5000',
-      '/chat': 'http://localhost:5000'
+      '/chat': 'http://localhost:5000',
+     '/https://dev-pf-boat-suggestion-ep.eastus.inference.ml.azure.com/score': 'http://127.0.0.1:50505',
+     '/valueProposition': 'http://127.0.0.1:50505',
+     '/walkthrough': 'http://127.0.0.1:50505'
     }
   }
 })
