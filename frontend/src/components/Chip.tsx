@@ -15,15 +15,16 @@ const stackStyles: IStackStyles = {
         padding: '8px 8px',
         flexGrow: 1, // Allow the stack to grow
         '@media (max-width: 600px)': {
-            height: "32px",
-            padding: '4px 8px',
+            // height: "30px",
+            padding: '1px 16px',
         },
         '@media (max-width: 1000px) and (min-width: 600px)': {
             height: "60px",
         },
         '@media (max-width: 1500px) and (min-width: 1000px)': {
-            height: "60px",
-            padding: '4px 8px',
+            marginLeft: "30px",
+            padding: "7px 15px",
+            marginBottom: "10px"
         },
         '@media (max-width: 2500px) and (min-width: 1500px)': {
             height: "68px",
@@ -70,7 +71,7 @@ const iconStyles: IIconProps = {
         root: {
 
             '@media (max-width: 600px)': {
-                fontSize: "14px",
+                fontSize: "12px",
                 fontWeight: 800,
             },
             '@media (max-width: 1000px) and (min-width: 600px)': {

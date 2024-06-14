@@ -201,7 +201,7 @@ const Home: React.FC = () => {
                             width: "80%"
                         },
                         '@media (max-width: 1500px) and (min-width: 1000px)': {
-                            width: "70%"
+                            width: "80%"
                         },
                         '@media (max-width: 2500px) and (min-width: 1500px)': {
                             width: "60%",
@@ -229,7 +229,7 @@ const Home: React.FC = () => {
                         <React.Fragment key={key}>
                             <Stack horizontalAlign='start' styles={{
                                 root: {
-                                    '@media (max-width: 2500px) and (min-width: 1000px)': {
+                                    '@media (max-width: 2500px)': {
                                         marginBottom: 12
                                     },
                                     width: "100%"
@@ -287,33 +287,34 @@ const Home: React.FC = () => {
                                 styles={{
                                     root: {
                                         '@media (max-width: 600px)': {
-                                            display: "block",
-                                            marginBottom: 10,
-                                            marginTop: 2,
+                                            display: '-webkit-inline-box',
+                                    marginBottom: "35px"
+
                                         },
-                                        // '@media (max-width: 1000px) and (min-width: 600px)': {
-                                        //     display: 'flex',
-                                        // },
                                         '@media (max-width: 2500px) and (min-width: 600px)': {
                                             display: '-webkit-inline-box',
-                                            marginBottom: 20,
+                                            marginBottom: "50px"
+
                                         },
                                     }
                                 }}
                                 style={{
+                                    marginTop:0,
                                     width: "100%",
                                     gap: "14px",
-                                    flexWrap: 'wrap'
+                                    flexWrap: 'wrap',
                                 }}
                             >
                                 {tags[key].slice(0, showMore[key] ? tags[key]?.length : 5).map((tag, index) => (
-                                    <Stack.Item key={index} grow={1} disableShrink styles={{
+                                    <Stack.Item key={index} grow={1} disableShrink  styles={{
                                         root: {
                                             marginLeft: "12px",
                                             marginRight: 5,
-                                            marginTop: "12px",
                                             '@media (max-width: 600px)': {
-                                                display: "inline-table",
+                                                // display: "inline-table",
+                                                width: "calc(33.3333% - 10px)",
+                                                marginLeft: "0px",
+                                                marginRight: 0,
                                             },
                                             // '@media (max-width: 1000px) and (min-width: 700px)': {
                                             //     maxWidth: "33%",
@@ -331,6 +332,8 @@ const Home: React.FC = () => {
                                                     '@media (max-width: 600px)': {
                                                         height: "50px",
                                                         fontSize: "14px",
+                                                        width: "100%",
+
                                                         fontWeight: 500,
                                                     },
                                                     '@media (max-width: 1000px) and (min-width: 600px)': {
@@ -351,19 +354,19 @@ const Home: React.FC = () => {
                                                     },
                                                 },
                                                 label: {
-                                                    whiteSpace: "normal", // Add this line
-                                                    wordWrap: "break-word", // Add this line
-                                                    textAlign: "center",
+                                                    // // whiteSpace: "normal", // Add this line
+                                                    // wordWrap: "break-word", // Add this line
+                                                    // textAlign: "center",
                                                 }
                                             }}
                                             style={{
-                                                padding: "0px 20px",
-                                                backgroundColor: selectedKeys.some(selected => selected.value === tag && selected.key === key) ? "#629E57" : '#151B1E',
+                                                padding: "0px 15px",
+                                                backgroundColor:selectedKeys.some(selected => selected.value === tag && selected.key === key) ? "#629E57" : '#151B1E',
                                                 color:selectedKeys.some(selected => selected.value === tag && selected.key === key) ? "#000000":"#FFFFFF",
                                                 border: "none",
                                                 lineHeight: "20px",
                                                 borderRadius: "12px",
-                                                whiteSpace: "nowrap",
+                                                // whiteSpace: "nowrap",
                                             }}
                                             onClick={() => typeof tag === 'string' && handleGroupSelection(key, tag)}
                                         >
@@ -429,7 +432,7 @@ const Home: React.FC = () => {
                                 paddingBottom: 20
                             },
                             '@media (max-width: 1500px) and (min-width: 1000px)': {
-                                width: "70%",
+                                width: "80%",
                                 padding: "10px 5px",
                                 bottom: isTextFieldFocused ? 120 : 0,
                             },
