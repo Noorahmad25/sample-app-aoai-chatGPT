@@ -10,17 +10,16 @@ const stackStyles: IStackStyles = {
         backgroundColor: 'transparent',
         cursor: 'pointer',
         marginLeft: 10,
-        border: '1px solid #151B1E',
+        border: '1px solid #93A099',
         borderRadius: "30px",
-        padding: '4px 8px',
+        padding: '8px 8px',
         flexGrow: 1, // Allow the stack to grow
         '@media (max-width: 600px)': {
-            height: "40px",
+            height: "32px",
             padding: '4px 8px',
         },
         '@media (max-width: 1000px) and (min-width: 600px)': {
             height: "60px",
-            padding: '4px 8px',
         },
         '@media (max-width: 1500px) and (min-width: 1000px)': {
             height: "60px",
@@ -35,27 +34,32 @@ const stackStyles: IStackStyles = {
 
 const labelStyles: ILabelStyles = {
     root: {
-        margin: '0 4px',
-        color: '#FFFFFF',
+        margin: '0 6px 0 0',
+        color: '#93A099',
         '@media (max-width: 600px)': {
-            fontSize: "14px",
+            fontSize: "12px",
             fontWeight: 600,
-            padding: "0px 5px",
+            // padding: "0px 5px",
 
         },
         '@media (max-width: 1000px) and (min-width: 600px)': {
             fontSize: "24px",
             fontWeight: 600,
-            padding: "0px 10px",
+            margin: '0 12px 0 12px',
+
         },
         '@media (max-width: 1500px) and (min-width: 1000px)': {
             fontSize: "22px",
             fontWeight: 600,
-            padding: "0px 10px",
+        margin: '0 12px 0 12px',
+
+            // padding: "0px 10px",
         },
         '@media (max-width: 2500px) and (min-width: 1500px)': {
             fontSize: "28px",
-            padding: "0px 10px",
+        margin: '0 12px 0 12px',
+
+            // padding: "0px 10px",
         },
     },
 };
@@ -67,24 +71,25 @@ const iconStyles: IIconProps = {
 
             '@media (max-width: 600px)': {
                 fontSize: "14px",
-                fontWeight: 600,
-            marginTop: 2,
-
+                fontWeight: 800,
             },
             '@media (max-width: 1000px) and (min-width: 600px)': {
-                fontSize: "18px",
+                fontSize: "20px",
                 fontWeight: 600,
-                marginTop: 4,
+                margin: "4px 6px 0px 0px",
+
             },
             '@media (max-width: 1500px) and (min-width: 1000px)': {
                 fontSize: "22px",
                 fontWeight: 600,
+                margin: "4px 6px 0px 0px",
+
             },
             '@media (max-width: 2500px) and (min-width: 1500px)': {
                 fontSize: "28px",
-                marginTop: 4,
+                margin: "4px 6px 0px 0px",
             },
-            color: '#FFFFFF',
+            color: '#93A099',
             cursor: 'pointer',
         },
     },

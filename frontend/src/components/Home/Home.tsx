@@ -216,6 +216,8 @@ const Home: React.FC = () => {
                     tokens={{ childrenGap: 10 }}
                     styles={{
                         root: {
+                        opacity:isTextFieldFocused ?0.2 :1,
+
                             '@media (max-width: 2500px) and (min-width: 600px)': {
                                 justifyContent: "center",
                                 marginTop: 0
@@ -223,7 +225,7 @@ const Home: React.FC = () => {
                         }
                     }}
                 >
-                    {!isTextFieldFocused && Object.keys(tags).map((key) => (
+                    {Object.keys(tags).map((key) => (
                         <React.Fragment key={key}>
                             <Stack horizontalAlign='start' styles={{
                                 root: {
@@ -234,6 +236,7 @@ const Home: React.FC = () => {
                                 }
                             }}
                             >
+                               {key === "who" && <div className={style.resetAll} onClick={() => resetAllClick()}>Reset</div>}
                                 <Text
                                     styles={{
                                         root: {
@@ -277,7 +280,6 @@ const Home: React.FC = () => {
                                             />
                                         ))}
                                     </div>
-                                    {key === "who" && <div className={style.resetAll} onClick={() => resetAllClick()}>Reset All</div>}
                                 </Text>
                             </Stack>
                             <Stack
