@@ -5,6 +5,46 @@ import { useNavigate } from 'react-router-dom';
 import { AppStateContext } from '../../state/AppProvider';
 import { getRecommendations } from '../../api';
 import boatImages from '../../constants/boatImages';
+import { mergeStyles } from '@fluentui/react/lib/Styling';
+import BackButton from '../BackButton';
+
+const imageClass = mergeStyles({
+    width: '30%',
+    borderRadius: '14px',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    '@media (max-width: 600px)': {
+        height: '72px',
+        width: "100px"
+    },
+    '@media (min-width: 600px) and (max-width: 1000px)': {
+        height: '190px !important',
+        width: "250px",
+        marginLeft: 5,
+        padding: "20px"
+    },
+    '@media (min-width: 1000px) and (max-width: 2500px)': {
+        height: '190px !important',
+        width: "250px",
+        marginLeft: 5,
+        padding: "20px"
+    },
+});
+
+const divClass = mergeStyles({
+    background: "#FFFFFF", width: "100px", height: "100px", borderRadius: '14px', display: "flex", alignItems: "center", justifyContent: "center",
+    '@media (max-width: 600px)': {
+        height: '100px',
+        width: "100px"
+    },
+    '@media (min-width: 600px) and (max-width: 1000px)': {
+        height: '200px',
+        width: "200px"
+    },
+    '@media (min-width: 1000px) and (max-width: 2500px)': {
+        height: '200px',
+        width: "250px"
+    },
+});
 
 const About: React.FC = () => {
     const navigate = useNavigate();
@@ -41,9 +81,9 @@ const About: React.FC = () => {
         setSelectedItem(item);
     }
 
-    const handleNextClick = (): void => {
+    const handleNextClick = (selectedItem: string): void => {
         if (selectedItem) {
-            appStateContext?.dispatch({ type: 'SET_SELECTED_BOAT', payload: selectedItem?.title })
+            appStateContext?.dispatch({ type: 'SET_SELECTED_BOAT', payload: selectedItem })
             navigate("/productInfo");
         }
     }
@@ -101,29 +141,137 @@ const About: React.FC = () => {
             ) : (
                 <Stack
                     horizontalAlign="center"
-                    styles={{ root: { height: '90vh', marginTop: 20 } }}
+                    styles={{
+                        root: {
+                            height: '90vh', 
+                            '@media (max-width: 1000px)': {
+                                marginTop: 30,
+                            },
+                            '@media (max-width: 600px)': {
+                                width: "100%"
+                            },
+                            '@media (max-width: 1000px) and (min-width: 600px)': {
+                                width: "100%",
+                            },
+                            '@media (max-width: 1500px) and (min-width: 1000px)': {
+                                width: "70%",
+                                marginTop: 80,
+                            },
+                            '@media (max-width: 2500px) and (min-width: 1500px)': {
+                                width: "60%",
+                                marginTop: 80,
+                            },
+                        }
+                    }}
                 >
                     <Stack
                         tokens={{ childrenGap: 20 }}
                         styles={{ root: { width: '100%', padding: 20, marginTop: 10 } }}
                     >
                         {dummyData && dummyData.length > 0 && (
-                            <Text style={{ color: "white", marginBottom: 20 }} variant="xLarge">Top Recommendations for this store</Text>
-                        )}
+                            <div style={{display:"flex",alignItems:"center"}}>
+                                 <BackButton onClick={()=>navigate("/")}></BackButton>
+                            <Text
+                                styles={{
+                                    root: {
+                                        '@media (max-width: 600px)': {
+                                            fontWeight: "bold", fontSize: "14px", lineHeight: "20px", fontStyle: "normal",
+                                        },
+                                        '@media (max-width: 1000px) and (min-width: 600px)': {
+                                            fontWeight: "bold", fontSize: "28px", lineHeight: "30px", fontStyle: "normal", marginBottom: 20 
+                                        },
+                                        '@media (max-width: 2500px) and (min-width: 1000px)': {
+                                            fontWeight: "bold", fontSize: "32px", lineHeight: "30px", fontStyle: "normal", marginBottom: 20 
+                                        },
+                                    }
+                                }}
+                                style={{ color: "white",display:"flex",alignItems:"center"}} >Top Recommendations for this store</Text>
+                        </div>)}
                         {dummyData && dummyData.length > 0 && dummyData.map((item, index) => (
-                            <DefaultButton key={index} styles={{ root: { width: '100%', height: "100%", padding: "12px", maxHeight: 150, borderRadius: "20px", backgroundColor: selectedItem === item ? "#FFFFFF" : "#D0D0D0" } }} onClick={() => handleBoatSelection(item)}>
-                                <Stack horizontal verticalAlign="center" tokens={{ childrenGap: 10 }} style={{ width: "100%" }}>
-                                    <Image
-                                        src={imagePath(item.title)}
-                                        alt={item.title}
-                                        width={"30%"}
-                                        height={100}
-                                        styles={{ root: { borderRadius: '14px'} }}
-                                    />
+                            <DefaultButton key={index} styles={{
+                                root: {
+                                    width: '100%',
+                                    '@media (max-width: 600px)': {
+                                        maxHeight: 150
+                                    },
+                                    '@media (max-width: 1000px) and (min-width: 600px)': {
+                                        minHeight: 200
+                                    },
+                                    '@media (max-width: 2500px) and (min-width: 1000px)': {
+                                        minHeight: 200,
+                                        padding: 20,
+                                    },
+                                    height: "100%", padding: "12px", borderRadius: "20px", backgroundColor: selectedItem === item ? "#FFFFFF" : "#D0D0D0"
+                                }
+                            }} onClick={() => handleNextClick(item.title)}>
+                                <Stack horizontal verticalAlign="center" tokens={{ childrenGap: 10 }} style={{ width: "100%" }} styles={{
+                                    root: {
+                                        '@media (max-width: 600px)': {
+                                            maxHeight: 150
+                                        },
+                                        '@media (max-width: 1000px) and (min-width: 600px)': {
+                                            minHeight: 200
+                                        },
+                                        '@media (max-width: 2500px) and (min-width: 1000px)': {
+                                            minHeight: 200
+                                        },
+                                    }
+                                }}>
+                                    <div className={divClass}>
+                                        <Image
+                                            src={imagePath(item.title)}
+                                            alt={item.title}
+                                            height={72}
+                                            className={imageClass}
+                                        />
+                                    </div>
 
-                                    <Stack tokens={{ childrenGap: 10 }} style={{ display: "flex", alignItems: "start", justifyContent: "center", textAlign: "initial", width: "70%" }}>
-                                        <Text style={{ fontWeight: "700",fontSize:"14px",lineHeight:"20px",fontStyle:"normal",color:"#000" }} >{item.title}</Text>
-                                        <Text style={{ fontWeight: "400",fontSize:"12px",lineHeight:"20px",fontStyle:"normal",color:"rgba(0, 0, 0, 0.70)" }}>{truncateText(item.detail, 100)}</Text>
+                                    <Stack tokens={{ childrenGap: 10 }}
+                                        style={{ display: "flex", alignItems: "start", justifyContent: "center", textAlign: "initial", width: "100%", marginLeft: 15}}
+                                        styles={{
+                                            root: {
+                                                '@media (max-width: 1000px)': {
+                                                    marginLeft: 10
+                                                },
+                                                '@media (max-width: 2500px) and (min-width: 1000px)': {
+                                                    marginLeft: 20,
+                                                    padding:"18px" 
+                                                },
+                                            }
+                                        }}>
+                                        <Text
+                                            styles={{
+                                                root: {
+                                                    '@media (max-width: 600px)': {
+                                                        fontWeight: "700", fontSize: "14px", lineHeight: "20px", fontStyle: "normal",
+                                                    },
+                                                    '@media (max-width: 1000px) and (min-width: 600px)': {
+                                                        fontWeight: "bold", fontSize: "24px", lineHeight: "20px", fontStyle: "normal",
+                                                        marginBottom:20
+                                                    },
+                                                    '@media (max-width: 2500px) and (min-width: 1000px)': {
+                                                        fontWeight: "bold", fontSize: "28px", lineHeight: "20px", fontStyle: "normal",
+                                                        marginBottom:20
+                                                    },
+                                                }
+                                            }}
+                                            style={{ color: "#000" }} >{item.title}</Text>
+                                        <Text
+                                            styles={{
+                                                root: {
+                                                    marginTop: 0,
+                                                    '@media (max-width: 600px)': {
+                                                        fontWeight: "500", fontSize: "12px", lineHeight: "18px", fontStyle: "normal",
+                                                    },
+                                                    '@media (max-width: 1000px) and (min-width: 600px)': {
+                                                        fontWeight: "500", fontSize: "18px", lineHeight: "30px", fontStyle: "normal",
+                                                    },
+                                                    '@media (max-width: 2500px) and (min-width: 1000px)': {
+                                                        fontWeight: "500", fontSize: "24px", lineHeight: "30px", fontStyle: "normal",
+                                                    },
+                                                }
+                                            }}
+                                            style={{ color: "rgba(0, 0, 0, 0.70)", marginTop: 0 }}>{truncateText(item.detail, 130)}</Text>
                                     </Stack>
                                 </Stack>
                             </DefaultButton>
@@ -136,21 +284,6 @@ const About: React.FC = () => {
                     )}
                 </Stack>
             )}
-            <Stack
-                tokens={{ childrenGap: 20 }}
-                horizontalAlign='center'
-                style={{ height: "10%", position: "fixed", bottom: 0 }}
-                styles={{ root: { padding: 20, flexWrap: "wrap",
-                    '@media (max-width: 1000px)': {
-                        width: "100%",
-                    },
-                    '@media (max-width: 2500px) and (min-width: 1000px)': {
-                        width: "30%",
-                    },
-                 } }}
-            >
-                <PrimaryButton styles={{label:{fontWeight:"500",fontSize: "0.875rem",lineHeight:"20px"}}} style={{ width: "100%", height: "48px",  borderRadius: 10, padding: "0px 14px", background: selectedItem ? "black" : "#191A1B", opacity: selectedItem ? 1 : 0.5, border: "none" }} onClick={handleNextClick}>Submit</PrimaryButton>
-            </Stack>
         </div>
     );
 };
