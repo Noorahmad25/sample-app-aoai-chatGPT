@@ -26,6 +26,7 @@ const Feedback: React.FC = () => {
     const textFieldStyle: React.CSSProperties = {
         flex: 1,
         width: "100%",
+        height:"300px",
         border: 'none',
         outline: 'none',
         backgroundColor: 'inherit',
@@ -68,7 +69,10 @@ const Feedback: React.FC = () => {
                             width: "100%",
                             padding: "0px 20px"
                         },
-                        '@media (max-width: 2500px) and (min-width: 1000px)': {
+                        '@media (max-width: 1500px) and (min-width: 1000px)': {
+                            width: "60%",
+                        },
+                        '@media (max-width: 2500px) and (min-width: 1500px)': {
                             width: "40%",
                         },
                     }
@@ -76,10 +80,11 @@ const Feedback: React.FC = () => {
                 tokens={{ childrenGap: 40 }}
             >
                 {showThankYou ? (
-                    <Stack tokens={{ childrenGap: 10 }} horizontalAlign="center" verticalAlign='center'>
+                    <Stack tokens={{ childrenGap: 10 }} horizontalAlign="center" verticalAlign='center' style={{width:"60%" }}>
                         <Text variant="xxLarge" style={{ color: "#FFFFFF", marginBottom: 20 }}
                             styles={{
                                 root: {
+                                    marginBottom:20,
                                     '@media (max-width: 1000px)': {
                                         fontSize: "18px"
                                     },
@@ -121,14 +126,17 @@ const Feedback: React.FC = () => {
                     </Stack>
                 ) : (
                     <>
-                        <Stack tokens={{ childrenGap: 10 }} horizontalAlign="center">
+                        <Stack tokens={{ childrenGap: 10 }} horizontalAlign="center" style={{marginBottom:20}}>
                             <Text styles={{
                                 root: {
                                     '@media (max-width: 1000px)': {
                                         fontSize: "18px"
 
                                     },
-                                    '@media (max-width: 2500px) and (min-width: 1000px)': {
+                                    '@media (max-width: 1500px) and (min-width: 1000px)': {
+                                        fontSize: "40px",
+                                    },
+                                    '@media (max-width: 2500px) and (min-width: 1500px)': {
                                         fontSize: "32px"
                                     },
                                 }
@@ -238,7 +246,11 @@ const Feedback: React.FC = () => {
                                     '@media (max-width: 1000px)': {
                                         fontSize: "14px"
                                     },
-                                    '@media (max-width: 2500px) and (min-width: 1000px)': {
+                                    '@media (max-width: 1500px) and (min-width: 1000px)': {
+                                        fontSize: "28px",
+                                        marginLeft: 10
+                                    },
+                                    '@media (max-width: 2500px) and (min-width: 1500px)': {
                                         fontSize: "24px",
                                         marginLeft: 10
                                     },

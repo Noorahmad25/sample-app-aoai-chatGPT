@@ -154,7 +154,7 @@ const About: React.FC = () => {
                                 width: "100%",
                             },
                             '@media (max-width: 1500px) and (min-width: 1000px)': {
-                                width: "70%",
+                                width: "80%",
                                 marginTop: 80,
                             },
                             '@media (max-width: 2500px) and (min-width: 1500px)': {
@@ -166,10 +166,10 @@ const About: React.FC = () => {
                 >
                     <Stack
                         tokens={{ childrenGap: 20 }}
-                        styles={{ root: { width: '100%', padding: 20, marginTop: 10 } }}
+                        styles={{ root: { width: '100%'} }}
                     >
                         {dummyData && dummyData.length > 0 && (
-                            <div style={{display:"flex",alignItems:"center"}}>
+                            <div style={{display:"flex",alignItems:"center",marginBottom:"20px"}}>
                                  <BackButton onClick={()=>navigate("/")}></BackButton>
                             <Text
                                 styles={{

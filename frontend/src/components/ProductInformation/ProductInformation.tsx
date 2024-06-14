@@ -125,7 +125,7 @@ const ProductInformation: React.FC = () => {
             },
             '@media (max-width: 1500px) and (min-width: 1000px)': {
                 fontWeight: "bold", fontSize: "28px",
-                marginBottom:20
+                // marginBottom:20
             },
             '@media (max-width: 2500px) and (min-width: 1500px)': {
                 fontSize:"30px",
@@ -146,12 +146,16 @@ const ProductInformation: React.FC = () => {
             '@media (max-width: 1000px)': {
               width: "100%",
             },
-            '@media (max-width: 2500px) and (min-width: 1000px)': {
+            '@media (max-width: 1500px) and (min-width: 1000px)': {
+              width: "80%",
+              marginTop: "80px"
+            },
+            '@media (max-width: 2500px) and (min-width: 1500px)': {
               width: "50%",
             },
           }
         }}>
-        <div style={{ display: "flex", width: "100%", padding: "0px 20px",alignItems:"center" }}>
+        <div style={{ display: "flex", width: "100%", padding: "0px",alignItems:"center",marginBottom:"20px" }}>
           <BackButton onClick={() => navigate("/recommendations")}></BackButton>
           <Text
             styles={{
@@ -166,7 +170,7 @@ const ProductInformation: React.FC = () => {
             }}
             style={{ color: "white", display: "flex", alignItems: "center" }} >Details</Text>
         </div>
-        <Stack horizontal tokens={{ childrenGap: 10 }} style={{ width: "100%", padding: "0px 20px" }}
+        <Stack horizontal tokens={{ childrenGap: 10 }} style={{ width: "100%", padding: "0px" }}
           styles={{
             root: {
               marginTop:10,
@@ -275,11 +279,12 @@ const ProductInformation: React.FC = () => {
           </PrimaryButton>
         </Stack>
         <Stack
-          style={{ height:selectedOption==="WalkAround" ? "80%":"" ,width: "100%", display: "flex", flexDirection: "column", flexWrap: "wrap", flexFlow: "column", overflow: "hidden", alignItems: "center",justifyContent:selectedOption === 'WalkAround' ?"center":"flex-start", padding: selectedOption === 'WalkAround' ? "0px" : "0px 20px" }}
+          style={{ height:selectedOption==="WalkAround" ? "70%":"" ,width: "100%", display: "flex", flexDirection: "column", flexWrap: "wrap", flexFlow: "column", overflow: "hidden", alignItems: "center",justifyContent:selectedOption === 'WalkAround' ?"center":"flex-start", padding: selectedOption === 'WalkAround' ? "0px" : "0px" }}
           tokens={{ childrenGap: 10 }}
           styles={{root:{
             '@media (max-width: 2500px) and (min-width: 1000px)': {
-              marginTop:10
+              // marginTop:10
+              marginTop: "40px"
             },
           }}}
         >
@@ -291,14 +296,17 @@ const ProductInformation: React.FC = () => {
           style={{ height: "12%", position: "fixed", zIndex: 99999, bottom: 0, background: "transparent" }}
           styles={{
             root: {
-              padding: 20, flexWrap: "wrap",
+              flexWrap: "wrap",
               '@media (max-width: 600px)': {
                 width: "100%",
               },
               '@media (max-width: 1000px) and (min-width: 600px)': {
                 width: "60%",
               },
-              '@media (max-width: 2500px) and (min-width: 1000px)': {
+              '@media (max-width: 1500px) and (min-width: 1000px)': {
+                width: "80%",
+              },
+              '@media (max-width: 2500px) and (min-width: 1500px)': {
                 width: "40%",
               },
             }
