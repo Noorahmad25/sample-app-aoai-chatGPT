@@ -1,100 +1,406 @@
-.inputContainer {
-    width: 90%
+.mainStackContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
 }
-
-.focusInputContainer {
-    width: 85%
+ 
+.mainContentStackContainer {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
-.buttonContainer {
-    width: 10%;
-    margin-top: 0 !important
+ 
+.contentStackContainer {
+    margin-top: 50px;
+    max-width: 1040px;
+    width: 100%;
+    padding: 0px 20px 0px 20px;
 }
-
-.resetAll {
+ 
+.resetDiv {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
     cursor: pointer;
     /* width: 100%; */
-    margin-bottom: 12px;
     color: #FFFFFF;
-    background:#2F3A40
 }
-
-@media (max-width: 620px) and (min-width: 400px) {
-    .inputContainer {
-        width: 80% !important
-    }
-
-    .buttonContainer {
-        width: 20%;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-    }
-
-    .focusInputContainer {
-        width: 100%
-    }
-
-    .resetAll {
-        padding-right: 12px;
-    }
+ 
+.resetButton {
+    height: auto;
+    background: #2F3A40;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50px;
+    font-size: 22px;
+    font-weight: normal;
+    padding: 15px 40px;
 }
-
-@media (max-width: 1000px) and (min-width: 620px) {
-    .resetAll {
+.resetButton:hover {
+    background-color: #2F3A40;
+    color: black;
+    border-color: #FFFFFF;
+  }
+.tagTypeStack {
+    padding: 0 0 20px;
+}
+ 
+.heading {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.40);
+    text-transform: capitalize;
+    font-size: 22px;
+    font-weight: normal;
+}
+ 
+.mainStackTags {
+    display: -webkit-inline-box;
+    margin-top: 0;
+    width: 100%;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+ 
+.stackitem {
+    width: calc((100% / 3) - 17px);
+    /* height: 50px; */
+}
+ 
+.tagButton {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 24px;
+    padding: 25px 15px;
+    font-size: 22px;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+ 
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: sticky;
+    bottom: 20px;
+    max-width: 1040px;
+    width: 100%;
+    margin: 0 auto;
+ 
+}
+ 
+.footerMainStack {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: center;
+    width: 100%;
+    padding: 0px 20px 0px 20px;
+}
+ 
+.buttonContainer {
+    margin-top: 0 !important;
+    /* width: 20%; */
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+}
+ 
+.inputContainer {
+    width: 100% !important
+}
+ 
+@media all and (max-width:767px){
+    .tagButton {
+        border-radius: 20px;
+        padding: 25px 15px;
+        font-size: 18px;
+    }
+ 
+    .heading {
         font-size: 24px;
     }
-
-    .buttonContainer {
-        width: 15%;
-        margin-top: 0 !important
+ 
+    .resetButton {
+        font-size: 24px;
     }
 }
-
-@media (max-width: 2000px) and (min-width: 1000px) {
-    .inputContainer {
-        width: 85% !important
-    }
-
-    .focusInputContainer {
-        width: 100%
-    }
-
-    .buttonContainer {
-        width: 15%;
-        display: flex;
-        align-items: flex-end;
-        justify-content: flex-end;
-    }
-
-    .resetAll {
+@media all and (max-width:575px){
+    .resetButton {
+        font-size: 18px;
         padding: 10px 20px;
-        font-size: 24px;
-        border-radius: 50px;
-        margin-left: auto;
+    }
+    .heading {
+        font-size: 20px;
+    }
+    .mainStackTags {
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .stackitem {
+        width: auto;
+        min-width: 105px;
+    }
+    .tagButton {
+        border-radius: 15px;
+        padding: 15px;
+        font-size: 16px;
     }
 }
-
-@media (max-width: 2500px) and (min-width: 2000px) {
+ /* @media (max-width: 599px) {
+    .contentStackContainer {
+        width: 100%;
+        padding: 0px 20px 0px 20px;
+    }
+ 
+    .mainContentStackContainer {
+        padding-left: 0.875rem;
+        padding-right: 0.875rem;
+    }
+ 
     .inputContainer {
-        width: 90% !important
+        width: 100% !important
     }
-
-    .focusInputContainer {
-        width: 100%
-    }
-
+ 
     .buttonContainer {
-        width: 10%;
-        display: flex;
-        align-items: flex-end;
-        justify-content: flex-start;
+        margin-left: 2;
+        width: 20%;
     }
-
-    .resetAll {
+ 
+    .stackitem {
+        width: calc(33.3333% - 10px);
+        height: 50px;
+    }
+ 
+    .footerMainStack {
+        width: 100%;
+ 
+    }
+} */
+ 
+/* @media (min-width: 600px) and (max-width: 959px) {
+    .contentStackContainer {
+        width: 90%;
+        padding: 0px 20px 0px 20px;
+    }
+ 
+    .mainContentStackContainer {
+        padding-left: 0.875rem;
+        padding-right: 0.875rem;
+    }
+ 
+    .resetButton {
+        font-size: 24px;
+    }
+ 
+    .inputContainer {
+        width: 100% !important
+    }
+ 
+    .buttonContainer {
+        margin-left: 2;
+        width: 15%;
+    }
+    .mainStackTags {
+        margin-bottom: 50px;
+    }
+    .stackitem {
+ 
+        width: calc(33.3333% - 10px);
+ 
+        height: 70px;
+    }
+    .resetButton {
+        font-size: 24px;
+        padding: 30px;
+    }
+ 
+    .tagButton {
+        font-size: 24px;
+    }
+ 
+    .heading {
+        font-size: 24px;
+    margin-bottom: 10px;
+ 
+    }
+ 
+    .footer {
+        bottom: 10px;
+    }
+ 
+    .footerMainStack {
+        width: 90%;
+    }
+ 
+ 
+} */
+ 
+/* @media (min-width: 960px) and (max-width: 1279px) {
+    .contentStackContainer {
+        width: 90%;
+        padding: 0px 20px 0px 20px;
+    }
+ 
+    .mainContentStackContainer {
+        padding-left: 0.875rem;
+        padding-right: 0.875rem;
+    }
+    .mainStackTags {
+        margin-bottom: 50px;
+    }
+    .inputContainer {
+        width: 100% !important
+    }
+ 
+    .buttonContainer {
+        margin-left: 2;
+        width: 15%;
+    }
+ 
+    .stackitem {
+ 
+        width: calc(33.3333% - 10px);
+ 
+        height: 80px;
+    }
+    .resetButton {
+        font-size: 24px;
+        padding: 30px;
+    }
+ 
+    .tagButton {
+        font-size: 24px;
+    }
+ 
+    .heading {
+        font-size: 24px;
+    margin-bottom: 10px;
+    }
+ 
+    .footer {
+        bottom: 10px;
+    }
+ 
+    .footerMainStack {
+        width: 90%;
+    }
+ 
+} */
+ 
+/* @media (min-width: 1280px) and (max-width: 1919px) {
+    .contentStackContainer {
+        width: 1100px;
+        max-width: 1366px;
+        padding: 0px 20px 0px 20px;
+    }
+ 
+    .mainContentStackContainer {
+        padding-left: 0.875rem;
+        padding-right: 0.875rem;
+    }
+    .mainStackTags {
+        margin-bottom: 50px;
+    }
+    .inputContainer {
+        width: 100% !important
+    }
+ 
+    .buttonContainer {
+        margin-left: 2;
+        width: 10%;
+    }
+ 
+    .stackitem {
+        width: calc(33.3333% - 10px);
+ 
+        height: 90px;
+    }
+    .resetButton {
+        font-size: 28px;
+        padding: 30px;
+    }
+ 
+    .tagButton {
+        font-size: 28px;
+    }
+ 
+    .heading {
         font-size: 32px;
+    margin-bottom: 10px;
+ 
+    }
+ 
+    .footer {
+        bottom: 10px;
+    }
+ 
+    .footerMainStack {
+        width: 1100px;
+        max-width: 1366px;
+    }
+ 
+} */
+ 
+/* @media (min-width: 1920px) {
+    .contentStackContainer {
+        width: 1100px;
+        padding: 0px 20px 0px 20px;
+    }
+ 
+    .mainContentStackContainer {
+        padding-left: 0.875rem;
+        padding-right: 0.875rem;
+    }
+ 
+    .inputContainer {
+        width: 100% !important
+    }
+ 
+    .buttonContainer {
+        margin-left: 2;
+        width: 10%;
+    }
+ 
+    .stackitem {
+        width: calc(33.3333% - 10px);
+        height: 90px;
+    }
+ 
+    .resetButton {
+        font-size: 28px;
+        padding: 30px;
+    }
+   
+    .tagButton {
+        font-size: 28px;
+    }
+ 
+    .footer {
+        bottom: 10px;
+    }
+ 
+    .heading {
+        font-size: 32px;
+    margin-bottom: 10px;
+ 
+    }
+ 
+    .footerMainStack {
+        width: 1100px;
+    }
+ 
+} */
+ 
+@media all and (max-width:575px){
+    .footer{
+        height: 100px !important;
     }
 }

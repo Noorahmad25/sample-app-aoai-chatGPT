@@ -5,13 +5,13 @@ import styles from '../../pages/chat/Chat.module.css';
 import { ThumbDislikeRegular, ThumbLikeRegular } from '@fluentui/react-icons';
 import { sendFeedback } from '../../api';
 import { AppStateContext } from '../../state/AppProvider';
-
+ 
 const Feedback: React.FC = () => {
     const [feedback, setFeedback] = useState<string>('');
     const appStateContext = useContext(AppStateContext);
-
+ 
     const conversationId = appStateContext?.state?.conversationId;
-
+ 
     const navigate = useNavigate();
     const [selectedButton, setSelectedButton] = useState<string>("");
     const [showThankYou, setShowThankYou] = useState<boolean>(false);
@@ -31,16 +31,16 @@ const Feedback: React.FC = () => {
         outline: 'none',
         backgroundColor: 'inherit',
     };
-
+ 
     const textFieldWrapperStyle: React.CSSProperties = {
         flex: 1,
         borderRadius: '25px',
     };
-
+ 
     const handleFeedbackChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         setFeedback(newValue || '');
     };
-
+ 
     const handleSubmit = () => {
         console.log(conversationId)
         sendFeedback(feedback, selectedButton, conversationId || "")
@@ -48,15 +48,15 @@ const Feedback: React.FC = () => {
         setSelectedButton('');
         setShowThankYou(true);
     };
-
+ 
     const handleNaviagte = () => {
         navigate("/");
     }
-
+ 
     const handleIconClick = (selectedValue: string): void => {
         setSelectedButton(selectedValue);
     }
-
+ 
     return (
         <div className={styles.chatContainer}>
             <Stack
@@ -80,13 +80,16 @@ const Feedback: React.FC = () => {
                 tokens={{ childrenGap: 40 }}
             >
                 {showThankYou ? (
-                    <Stack tokens={{ childrenGap: 10 }} horizontalAlign="center" verticalAlign='center' style={{width:"60%" }}>
+                    <Stack tokens={{ childrenGap: 10 }} horizontalAlign="center" verticalAlign='center' >
                         <Text variant="xxLarge" style={{ color: "#FFFFFF", marginBottom: 20 }}
                             styles={{
                                 root: {
                                     marginBottom:20,
-                                    '@media (max-width: 1000px)': {
+                                    '@media (max-width: 600px)': {
                                         fontSize: "18px"
+                                    },
+                                    '@media (max-width: 1000px) and (min-width: 600px)': {
+                                        fontSize: "24px"
                                     },
                                     '@media (max-width: 2500px) and (min-width: 1000px)': {
                                         fontSize: "32px"
@@ -102,7 +105,7 @@ const Feedback: React.FC = () => {
                                     },
                                     '@media (max-width: 1000px) and (min-width: 600px)': {
                                         height: "70px"
-
+ 
                                     },
                                     '@media (max-width: 2500px) and (min-width: 1000px)': {
                                         height: "80px"
@@ -114,8 +117,8 @@ const Feedback: React.FC = () => {
                                     },
                                     '@media (max-width: 1000px) and (min-width: 600px)': {
                                         fontSize: "1.25rem"
-
-
+ 
+ 
                                     },
                                     '@media (max-width: 2500px) and (min-width: 1000px)': {
                                         fontSize: "24px"
@@ -131,7 +134,10 @@ const Feedback: React.FC = () => {
                                 root: {
                                     '@media (max-width: 1000px)': {
                                         fontSize: "18px"
-
+ 
+                                    },
+                                    '@media (max-width: 1000px) and (min-width: 600px)': {
+                                        fontSize: "24px",
                                     },
                                     '@media (max-width: 1500px) and (min-width: 1000px)': {
                                         fontSize: "40px",
@@ -307,5 +313,5 @@ const Feedback: React.FC = () => {
         </div>
     );
 };
-
+ 
 export default Feedback;
