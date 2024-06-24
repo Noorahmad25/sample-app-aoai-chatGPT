@@ -188,17 +188,18 @@ const Home: React.FC = () => {
   return (
     <>
     <Stack className={style.mainStackContainer}>
+      <div className={style.resetDiv}>
+        <DefaultButton
+          onClick={() => resetAllClick()}
+          className={style.resetButton}
+          styles={{
+            label: { fontWeight: 'normal', color: 'rgba(255,255,255,0.41)' }
+          }}>
+          Reset
+        </DefaultButton>
+      </div>
       <Stack className={style.mainContentStackContainer}>
-        <div className={style.resetDiv}>
-          <DefaultButton
-            onClick={() => resetAllClick()}
-            className={style.resetButton}
-            styles={{
-              label: { fontWeight: 'normal', color: 'rgba(255,255,255,0.41)' }
-            }}>
-            Reset
-          </DefaultButton>
-        </div>
+        
         <Stack className={style.contentStackContainer} style={{ opacity: isTextFieldFocused ? 0.3 : 1 }}>
           {Object.keys(tags).map(key => (
             <React.Fragment key={key}>

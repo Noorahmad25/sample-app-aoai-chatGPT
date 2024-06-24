@@ -320,7 +320,7 @@ const About: React.FC = () => {
                                             styles={{
                                                 root: {
                                                     '@media (max-width: 600px)': {
-                                                        fontWeight: "700", fontSize: "14px", lineHeight: "20px", fontStyle: "normal",
+                                                        fontWeight: "700", fontSize: "14px", lineHeight: "30px", fontStyle: "normal",
                                                     },
                                                     '@media (max-width: 1000px) and (min-width: 600px)': {
                                                         fontWeight: "bold", fontSize: "24px", lineHeight: "20px", fontStyle: "normal",

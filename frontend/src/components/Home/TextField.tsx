@@ -39,7 +39,7 @@ const TextFieldComponent: React.FC<Props> = ({ placeholder, onButtonClick, text,
     flex: 1,
     borderRadius: '25px',
     height: "100%",
-    padding:isTextFieldFocused ? "25px 25px" :"0"
+    padding:isTextFieldFocused ? "15px 15px" :"0"
   };
   const appStateContext = useContext(AppStateContext)
  
@@ -96,7 +96,7 @@ const TextFieldComponent: React.FC<Props> = ({ placeholder, onButtonClick, text,
             rows={isTextFieldFocused ? 4 : 1}
             styles={{
               root: {
-                color: "#000000",
+                color: "#151B1E",
                 // '@media (max-width: 1000px)': {
                 //   fontSize: "14px",
                 //   height: isTextFieldFocused ? "150px" : "30px",
@@ -153,15 +153,16 @@ const TextFieldComponent: React.FC<Props> = ({ placeholder, onButtonClick, text,
                 color:"#3A4146",
                 '@media all and (max-width:575px)':{
                   padding:'0 10px',
-                  fontSize:"20px",
-                  lineHeight:'normal',
+                  fontSize:"18px",
+                  lineHeight:'1.6rem',
                 },
                 '::placeholder': {
                   color:"#3A4146",
                     fontWeight: "500",
                     fontSize:"22px",
                     '@media all and (max-width:575px)':{
-                      fontSize:"20px",
+                      fontSize:"18px",
+                      lineHeight:'1.6rem',
                     },
                 },
               },

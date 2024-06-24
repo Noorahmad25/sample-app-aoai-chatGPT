@@ -64,7 +64,7 @@ const ProductInformation: React.FC = () => {
       }
       const walkaroundResponse = {
         messages:
-          '{"result": [{"title": "Driver Console", "detail": "Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight."}, {"title": "Seating Capacity", "detail": "Accommodates up to 11 passengers in a feature-rich interior, ensuring comfort during full days of cruising and adventure.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Entertainment System", "detail": "Equipped with a powerful KICKER® Bluetooth stereo system and an advanced phone management station for all-day entertainment.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Storage Solutions", "detail": "Plentiful storage options are available for all your gear, keeping the deck clear and organized.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Water Sports Features", "detail": "Comes with a removable ski tow pylon for water sports and adventure."}, {"title": "Swim Platforms", "detail": "Features aft swim platforms with a boarding ladder, making it easy to access the water."}]}'
+          '{"result": [{"title": "Driver Console", "detail": "draulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight."}, {"title": "Seating Capacity", "detail": "Accommodates up to 11 passengers in a feature-rich interior, ensuring comfort during full days of cruising and adventure.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Entertainment System", "detail": "Equipped with a powerful KICKER® Bluetooth stereo system and an advanced phone management station for all-day entertainment.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Storage Solutions", "detail": "Plentiful storage options are available for all your gear, keeping the deck clear and organized.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Water Sports Features", "detail": "Comes with a removable ski tow pylon for water sports and adventure."}, {"title": "Swim Platforms", "detail": "Features aft swim platforms with a boarding ladder, making it easy to access the water."}]}'
       }
 
       if (valuePropositionsResponse) {
@@ -104,7 +104,7 @@ const ProductInformation: React.FC = () => {
       root: {
         '@media (max-width: 600px)': {
           fontWeight: 'bold',
-          fontSize: '14px'
+          fontSize: '16px'
         },
         '@media (max-width: 1000px) and (min-width: 600px)': {
           fontWeight: 'bold',
@@ -117,7 +117,7 @@ const ProductInformation: React.FC = () => {
         '@media (max-width: 2500px) and (min-width: 1500px)': {
           fontSize: '30px'
         },
-        color: '#FFFFFF',
+        color: selectedOption !== "FlashCard" ?'#9A9A90' :"#FFFFFF",
         cursor: 'pointer'
       }
     }
@@ -159,11 +159,11 @@ const ProductInformation: React.FC = () => {
                     '@media (max-width: 600px)': {
                       height: '40px'
                     },
-                    height: '80px',
-                    background: 'transparent',
+                    height: '60px',
+                    background: `${selectedOption === 'FlashCard' ? "#202A2F !important" : "transparent"}`,
                     borderRadius: 10,
                     boxShadow: 'none',
-                    border: `1px solid ${selectedOption === 'FlashCard' ? 'black !important' : 'transparent'}`,
+                    border: '2px solid #1d262a !important' ,
                     selectors: {
                       ':hover': {
                         background: 'transparent !important'
@@ -185,7 +185,7 @@ const ProductInformation: React.FC = () => {
                         fontSize: '14px',
                         fontWeight: '600'
                       },
-                        fontSize: '26px',
+                        fontSize: '20px',
                         fontWeight: '600'
                     }
                   }}
@@ -205,20 +205,11 @@ const ProductInformation: React.FC = () => {
                     '@media (max-width: 600px)': {
                       height: '40px'
                     },
-                    // '@media (max-width: 2500px) and (min-width: 600px)': {
-                    //   height: '80px',
-                    //   ':hover': {
-                    //     background: 'transparent !important'
-                    //   }
-                    // },
-                    height: '80px',
-                    ':hover': {
-                      background: 'transparent !important'
-                    },
+                    height: '60px',
                     width: '50%',
-                    background: 'transparent',
-                    borderRadius: 5,
-                    border: `2px solid ${selectedOption === 'WalkAround' ? '#1d262a !important' : 'transparent'}`,
+                    background: `${selectedOption === 'WalkAround' ? "#202A2F !important" : "transparent"}`,
+                    borderRadius: 10,
+                    border: '2px solid #1d262a !important' ,
                     color: '#FFFFFF',
                     boxShadow: 'none',
                     selectors: {
@@ -242,7 +233,7 @@ const ProductInformation: React.FC = () => {
                         fontSize: '14px',
                         fontWeight: '600'
                       },
-                        fontSize: '26px',
+                        fontSize: '20px',
                         fontWeight: '600'
                     }
                   }}
@@ -295,7 +286,23 @@ const ProductInformation: React.FC = () => {
         >
           <Stack
             className={style.footerStackContainer}>
-            <PrimaryButton className={style.button} disabled = {isLoading} onClick={handleNextClick}>Done</PrimaryButton>
+            <PrimaryButton
+            styles={{root:{
+              boxShadow: 'none',
+              border: '2px solid #1d262a !important' ,
+              selectors: {
+                ':hover': {
+                  background: 'black !important'
+                },
+                ':active': {
+                  background: '#202a2f'
+                },
+                ':focus': {
+                  background: 'transparent'
+                }
+              }
+            }}}
+            className={style.button} disabled = {isLoading} onClick={handleNextClick}>Done</PrimaryButton>
           </Stack>
         </Stack>
       </Stack>

@@ -58,7 +58,11 @@ const Feedback: React.FC = () => {
     }
  
     return (
-        <div className={styles.chatContainer}>
+        <div style={{
+            display:"flex",
+            alignItems:"center",
+            justifyContent:"center",
+        }}>
             <Stack
                 horizontalAlign="center"
                 verticalAlign={"center"}
@@ -77,7 +81,7 @@ const Feedback: React.FC = () => {
                         },
                     }
                 }}
-                tokens={{ childrenGap: 40 }}
+                tokens={{ childrenGap: 30 }}
             >
                 {showThankYou ? (
                     <Stack tokens={{ childrenGap: 10 }} horizontalAlign="center" verticalAlign='center' >
@@ -101,15 +105,12 @@ const Feedback: React.FC = () => {
                             styles={{
                                 root: {
                                     '@media (max-width: 600px)': {
-                                        height: "50px"
+                                        // height: "50px"
+                                        width:"fit-content",
+                                        padding:"20px 30px"
                                     },
-                                    '@media (max-width: 1000px) and (min-width: 600px)': {
-                                        height: "70px"
- 
-                                    },
-                                    '@media (max-width: 2500px) and (min-width: 1000px)': {
-                                        height: "80px"
-                                    },
+                                    padding:"30px 30px"
+
                                 },
                                 label: {
                                     '@media (max-width: 1000px)': {
@@ -125,11 +126,11 @@ const Feedback: React.FC = () => {
                                     },
                                 }
                             }}
-                            style={{ width: "100%", borderRadius: 10, padding: 20, background: 'black', border: "none" }} onClick={handleNaviagte}>Go to Home</PrimaryButton>
+                            style={{  borderRadius: 10,  background: 'black', border: "none" }} onClick={handleNaviagte}>Go to Home</PrimaryButton>
                     </Stack>
                 ) : (
                     <>
-                        <Stack tokens={{ childrenGap: 10 }} horizontalAlign="center" style={{marginBottom:20}}>
+                        <Stack tokens={{ childrenGap: 10 }} horizontalAlign="center" style={{marginBottom:5}}>
                             <Text styles={{
                                 root: {
                                     '@media (max-width: 1000px)': {
@@ -146,7 +147,7 @@ const Feedback: React.FC = () => {
                                         fontSize: "32px"
                                     },
                                 }
-                            }} style={{ color: "#EEE" }} variant="xLarge">Rate your experience</Text>
+                            }} style={{ color: "#9A9A90" }} variant="xLarge">Rate your experience</Text>
                         </Stack>
                         <Stack horizontal style={{ width: "100%" }} tokens={{ childrenGap: 15 }}>
                             <DefaultButton
@@ -181,7 +182,7 @@ const Feedback: React.FC = () => {
                                                 },
                                             }
                                         }}
-                                        style={{ color: selectedButton === "Like" ? "#000" : "#EEE", marginBottom: "8px" }}>Good</Text>
+                                        style={{ color: selectedButton === "Like" ? "#000" : "#629E57", marginBottom: "8px" }}>Good</Text>
                                 </Stack>
                             </DefaultButton>
                             <DefaultButton
@@ -215,7 +216,7 @@ const Feedback: React.FC = () => {
                                             },
                                         }
                                     }}
-                                        style={{ color: selectedButton === "DisLike" ? "#000" : "#EEE" }}>Improve</Text>
+                                        style={{ color: selectedButton === "DisLike" ? "#000" : "#e46969" }}>Improve</Text>
                                 </Stack>
                             </DefaultButton>
                         </Stack>
@@ -310,7 +311,7 @@ const Feedback: React.FC = () => {
                         </Stack>
                     </>)}
             </Stack>
-        </div>
+            </div>
     );
 };
  

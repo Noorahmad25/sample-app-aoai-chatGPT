@@ -151,7 +151,7 @@ const DesktopTextField: React.FC<Props> = ({ placeholder, onButtonClick,  prompt
             borderRadius: 10,
             padding: 25,
             fontSize: "0.875rem",
-            background: "#151B1E",
+            background: "#629E57",
             border: "none"
           }}
           onMouseDown={handleMouseDown}
