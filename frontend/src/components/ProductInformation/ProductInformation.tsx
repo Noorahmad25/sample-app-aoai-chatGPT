@@ -57,22 +57,22 @@ const ProductInformation: React.FC = () => {
       appStateContext?.dispatch({ type: 'SET_VALUE_PROPOSITION_LOADING', payload: true })
       appStateContext?.dispatch({ type: 'SET_WALKTHROUGH_LOADING', payload: true })
 
-      const valuePropositionsResponse = await getValuePropositions(templete2(selectedboat || "", selectedbrand || ""), conversationId || "")
-      // const valuePropositionsResponse = {
-      //   messages:
-      //     '{"result": [{"title": "SUN TRACKER FLARE touchscreen gauge display & 12-button switch panel", "detail": "Offers modern, easy-to-use navigational and control features"}, {"title": "Wet Sounds stereo with Bluetooth & two 6.5\\" upholstery speakers", "detail": "Ensures high-quality audio entertainment on the water"}, {"title": "New motor & adaptor harnesses", "detail": "Improves performance and compatibility with various accessories"},{"title": "SUN TRACKER FLARE touchscreen gauge display & 12-button switch panel", "detail": "Offers modern, easy-to-use navigational and control features"}, {"title": "Wet Sounds stereo with Bluetooth & two 6.5\\" upholstery speakers", "detail": "Ensures high-quality audio entertainment on the water"}, {"title": "New motor & adaptor harnesses", "detail": "Improves performance and compatibility with various accessories"}]}'
-      // }
-      // const walkaroundResponse = {
-      //   messages:
-      //     '{"result": [{"title": "Driver Console", "detail": "Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Seating Capacity", "detail": "Accommodates up to 11 passengers in a feature-rich interior, ensuring comfort during full days of cruising and adventure."}, {"title": "Entertainment System", "detail": "Equipped with a powerful KICKER® Bluetooth stereo system and an advanced phone management station for all-day entertainment."}, {"title": "Storage Solutions", "detail": "Plentiful storage options are available for all your gear, keeping the deck clear and organized."}, {"title": "Water Sports Features", "detail": "Comes with a removable ski tow pylon for water sports and adventure."}, {"title": "Swim Platforms", "detail": "Features aft swim platforms with a boarding ladder, making it easy to access the water."}]}'
-      // }
+      // const valuePropositionsResponse = await getValuePropositions(templete2(selectedboat || "", selectedbrand || ""), conversationId || "")
+      const valuePropositionsResponse = {
+        messages:
+          '{"result": [{"title": "SUN TRACKER FLARE touchscreen gauge display & 12-button switch panel", "detail": "Offers modern, easy-to-use navigational and control features"}, {"title": "Wet Sounds stereo with Bluetooth & two 6.5\\" upholstery speakers", "detail": "Ensures high-quality audio entertainment on the water"}, {"title": "New motor & adaptor harnesses", "detail": "Improves performance and compatibility with various accessories"},{"title": "SUN TRACKER FLARE touchscreen gauge display & 12-button switch panel", "detail": "Offers modern, easy-to-use navigational and control features"}, {"title": "Wet Sounds stereo with Bluetooth & two 6.5\\" upholstery speakers", "detail": "Ensures high-quality audio entertainment on the water"}, {"title": "New motor & adaptor harnesses", "detail": "Improves performance and compatibility with various accessories"}]}'
+      }
+      const walkaroundResponse = {
+        messages:
+          '{"result": [{"title": "Driver Console", "detail": "Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight."}, {"title": "Seating Capacity", "detail": "Accommodates up to 11 passengers in a feature-rich interior, ensuring comfort during full days of cruising and adventure.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Entertainment System", "detail": "Equipped with a powerful KICKER® Bluetooth stereo system and an advanced phone management station for all-day entertainment.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Storage Solutions", "detail": "Plentiful storage options are available for all your gear, keeping the deck clear and organized.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Water Sports Features", "detail": "Comes with a removable ski tow pylon for water sports and adventure."}, {"title": "Swim Platforms", "detail": "Features aft swim platforms with a boarding ladder, making it easy to access the water."}]}'
+      }
 
       if (valuePropositionsResponse) {
         const parsedDataValueProps = JSON.parse(valuePropositionsResponse?.messages);
         const valuePropositions = parsedDataValueProps?.result
         appStateContext?.dispatch({ type: 'SET_VALUE_PROPOSITION_STATE', payload: valuePropositions })
       }
-      const walkaroundResponse = await getWalkthroughData(templete3(selectedboat || "", selectedbrand || ""), conversationId || "")
+      // const walkaroundResponse = await getWalkthroughData(templete3(selectedboat || "", selectedbrand || ""), conversationId || "")
 
       if (walkaroundResponse) {
         const parsedDataWalkThrough = JSON.parse(walkaroundResponse?.messages);
@@ -136,7 +136,7 @@ const ProductInformation: React.FC = () => {
             <Stack
               horizontal
               tokens={{ childrenGap: 10 }}
-              style={{ width: '100%', padding: '0px', marginTop: 10, marginBottom: 10 }}
+              style={{ width: '100%', padding: '0px', marginTop: 15}}
             // styles={{
             //   root: {
             //     marginTop: 10,
@@ -159,9 +159,7 @@ const ProductInformation: React.FC = () => {
                     '@media (max-width: 600px)': {
                       height: '40px'
                     },
-                    '@media (max-width: 2500px) and (min-width: 600px)': {
-                      height: '80px'
-                    },
+                    height: '80px',
                     background: 'transparent',
                     borderRadius: 10,
                     boxShadow: 'none',
@@ -187,10 +185,8 @@ const ProductInformation: React.FC = () => {
                         fontSize: '14px',
                         fontWeight: '600'
                       },
-                      '@media (max-width: 2500px) and (min-width: 600px)': {
-                        fontSize: '20px',
+                        fontSize: '26px',
                         fontWeight: '600'
-                      }
                     }
                   }}
                   style={{
@@ -209,11 +205,15 @@ const ProductInformation: React.FC = () => {
                     '@media (max-width: 600px)': {
                       height: '40px'
                     },
-                    '@media (max-width: 2500px) and (min-width: 600px)': {
-                      height: '80px',
-                      ':hover': {
-                        background: 'transparent !important'
-                      }
+                    // '@media (max-width: 2500px) and (min-width: 600px)': {
+                    //   height: '80px',
+                    //   ':hover': {
+                    //     background: 'transparent !important'
+                    //   }
+                    // },
+                    height: '80px',
+                    ':hover': {
+                      background: 'transparent !important'
                     },
                     width: '50%',
                     background: 'transparent',
@@ -242,10 +242,8 @@ const ProductInformation: React.FC = () => {
                         fontSize: '14px',
                         fontWeight: '600'
                       },
-                      '@media (max-width: 2500px) and (min-width: 600px)': {
-                        fontSize: '20px',
+                        fontSize: '26px',
                         fontWeight: '600'
-                      }
                     }
                   }}
                   style={{ color: selectedOption === 'WalkAround' ? '#FFF' : '#9A9A90', marginLeft: 10 }}>
@@ -256,7 +254,7 @@ const ProductInformation: React.FC = () => {
           </Stack>
         </Stack>
         <Stack
-          className={style.contentMainStackContainer} style={{ justifyContent: selectedOption === 'WalkAround' ? 'center' : '' }}>
+          className={selectedOption === 'WalkAround' ? style.contentStackContainerWalkthrough :style.contentMainStackContainer} style={{ justifyContent: selectedOption === 'WalkAround' ? 'center' : '' }}>
           <Stack
             style={{ height: isLoading ? "100%" : "" }}
             className={style.contentStackContainer}
