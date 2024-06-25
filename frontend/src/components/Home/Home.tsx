@@ -143,12 +143,14 @@ const Home: React.FC = () => {
     const processedTemplate = processTemplate()
     if (processedTemplate.trim() !== '' && selectedKeys?.length > 0) {
       setInputValue(processedTemplate)
+    } else {
+      setInputValue("")
     }
   }, [selectedKeys])
 
   const buttonDisabled = useMemo(() => {
-    return selectedKeys?.length === 0
-  }, [selectedKeys, inputValue])
+    return selectedKeys?.length === 0 && inputValue==="" && textFieldValue===""
+  }, [selectedKeys, inputValue,textFieldValue])
 
   const handleSubmit = () => {
     const inputPayload = inputValue + ` ${textFieldValue}`;
@@ -183,12 +185,13 @@ const Home: React.FC = () => {
       return initialTags
     })
     setSelectedKeys([])
+    setInputValue("")
   }
 
   return (
     <>
     <Stack className={style.mainStackContainer}>
-      <div className={style.resetDiv}>
+      {selectedKeys?.length>0 && (<div className={style.resetDiv}>
         <DefaultButton
           onClick={() => resetAllClick()}
           className={style.resetButton}
@@ -197,7 +200,7 @@ const Home: React.FC = () => {
           }}>
           Reset
         </DefaultButton>
-      </div>
+      </div>)}
       <Stack className={style.mainContentStackContainer}>
         
         <Stack className={style.contentStackContainer} style={{ opacity: isTextFieldFocused ? 0.3 : 1 }}>
@@ -295,6 +298,7 @@ const Home: React.FC = () => {
                       onFocus={() => setIsTextFieldFocused(true)} // Set focused state on focus
                       onBlur={() => setIsTextFieldFocused(false)}
                       isTextFieldFocused={isTextFieldFocused} 
+                      isButtonEnabled={selectedKeys?.length>0}
         />
         </div>
             {/* )} */}

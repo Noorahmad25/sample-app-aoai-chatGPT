@@ -56,9 +56,9 @@ const Card: React.FC<CardProps> = ({ title, detail }) => {
         </Text>
         <Text styles={{
           root: {
-            // marginTop:"auto",
+            marginTop:"auto",
             color:"#151B1E",
-            '@media (max-width: 600px)': {
+            '@media (max-width: 575px)': {
               fontSize: "18px",
               fontWeight: "500",
               lineHeight:"1.6rem",

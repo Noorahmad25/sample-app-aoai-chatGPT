@@ -13,7 +13,7 @@ interface Props {
   isButtonRequired?: boolean
   onFocus?: () => void;
   onBlur?: () => void;
-  isTextFieldFocused?: boolean
+  isTextFieldFocused?: boolean;
 }
  
 const TextFieldComponent: React.FC<Props> = ({ placeholder, onButtonClick, text, setText, allowBorder = false, isButtonRequired = true, onFocus, onBlur, isTextFieldFocused = false }) => {
@@ -93,7 +93,7 @@ const TextFieldComponent: React.FC<Props> = ({ placeholder, onButtonClick, text,
             value={inputText}
             resizable={false}
             multiline
-            rows={isTextFieldFocused ? 4 : 1}
+            rows={isTextFieldFocused ? 2 : 1}
             styles={{
               root: {
                 color: "#151B1E",
@@ -130,40 +130,19 @@ const TextFieldComponent: React.FC<Props> = ({ placeholder, onButtonClick, text,
               },
               field: {
                 backgroundColor: 'inherit',
-                textOverflow: !isTextFieldFocused ? 'ellipsis' : 'initial',
-                fontSize:"24px",
+                textOverflow: 'ellipsis',
+                fontSize:"22px",
                 fontWeight:isTextFieldFocused ? 400:600,
- 
+                padding:!isTextFieldFocused ?"15px 15px 15px 25px" :"10px 15px",
                 overflow: 'hidden',
-                // '@media (max-width: 600px)': {
-                //   fontSize: "14px",
-                //   height: isTextFieldFocused ? "150px" : "30px",
-                // },
-                // '@media (max-width: 1000px) and (min-width: 600px)': {
-                //   fontSize: "18px",
-                //   fontWeight: "500",
-                //   height: isTextFieldFocused ? "230px" : "50px",
-                // },
-                // '@media (max-width: 2500px) and (min-width: 1000px)': {
-                //   fontSize: "30px",
-                //   fontWeight: "100",
-                //   height: isTextFieldFocused ? "230px" : "50px",
-                // },
-                lineHeight: isTextFieldFocused ? "1.6em" : "1.2em",
+                lineHeight:"30px",
                 color:"#3A4146",
-                '@media all and (max-width:575px)':{
-                  padding:'0 10px',
-                  fontSize:"18px",
-                  lineHeight:'1.6rem',
-                },
                 '::placeholder': {
                   color:"#3A4146",
-                    fontWeight: "500",
-                    fontSize:"22px",
-                    '@media all and (max-width:575px)':{
-                      fontSize:"18px",
-                      lineHeight:'1.6rem',
-                    },
+                    fontWeight: "400",
+                    // paddingLeft:"10px",
+                    fontSize:"20px",
+                    lineHeight:"28px"
                 },
               },
             }}

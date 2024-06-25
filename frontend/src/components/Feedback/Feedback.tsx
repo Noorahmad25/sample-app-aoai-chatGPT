@@ -69,16 +69,9 @@ const Feedback: React.FC = () => {
                 styles={{
                     root: {
                         height: '100vh', marginTop: !showThankYou ? "0px" : "0px",
-                        '@media (max-width: 1000px)': {
-                            width: "100%",
-                            padding: "0px 20px"
-                        },
-                        '@media (max-width: 1500px) and (min-width: 1000px)': {
-                            width: "60%",
-                        },
-                        '@media (max-width: 2500px) and (min-width: 1500px)': {
-                            width: "40%",
-                        },
+                        width:"100%",
+                        maxWidth: "500px",
+                        padding:"50px 20px"
                     }
                 }}
                 tokens={{ childrenGap: 30 }}
@@ -147,7 +140,7 @@ const Feedback: React.FC = () => {
                                         fontSize: "32px"
                                     },
                                 }
-                            }} style={{ color: "#9A9A90" }} variant="xLarge">Rate your experience</Text>
+                            }} style={{ color: "#FFFFFF" }} variant="xLarge">Rate your experience</Text>
                         </Stack>
                         <Stack horizontal style={{ width: "100%" }} tokens={{ childrenGap: 15 }}>
                             <DefaultButton

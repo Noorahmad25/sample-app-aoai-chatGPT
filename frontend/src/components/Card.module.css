@@ -4,10 +4,9 @@
   /* align-items: center; */
   justify-content: center;
   background-color: #eccb3c;
-  width: 700px;
-  height: 80%;
+  width: 500px;
   min-height: 350px;
-  padding:30px 35px;
+  padding:30px;
   border-radius: 20px;
 }
 
@@ -32,6 +31,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.carouselWrapper > div > div{
+  align-items: normal;
 }
 
 @media (max-width: 575px) {

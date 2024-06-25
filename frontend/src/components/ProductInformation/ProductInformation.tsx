@@ -60,11 +60,11 @@ const ProductInformation: React.FC = () => {
       // const valuePropositionsResponse = await getValuePropositions(templete2(selectedboat || "", selectedbrand || ""), conversationId || "")
       const valuePropositionsResponse = {
         messages:
-          '{"result": [{"title": "SUN TRACKER FLARE touchscreen gauge display & 12-button switch panel", "detail": "Offers modern, easy-to-use navigational and control features"}, {"title": "Wet Sounds stereo with Bluetooth & two 6.5\\" upholstery speakers", "detail": "Ensures high-quality audio entertainment on the water"}, {"title": "New motor & adaptor harnesses", "detail": "Improves performance and compatibility with various accessories"},{"title": "SUN TRACKER FLARE touchscreen gauge display & 12-button switch panel", "detail": "Offers modern, easy-to-use navigational and control features"}, {"title": "Wet Sounds stereo with Bluetooth & two 6.5\\" upholstery speakers", "detail": "Ensures high-quality audio entertainment on the water"}, {"title": "New motor & adaptor harnesses", "detail": "Improves performance and compatibility with various accessories"}]}'
+          '{"result": [{"title": "SUN TRACKER FLARE touchscreen gauge", "detail": "Offers modern, easy-to-use navigational and control features. Offers modern, easy-to-use navigational and control"}, {"title": "Wet Sounds stereo with Bluetooth & two 6.5\\" upholstery speakers", "detail": "Ensures high-quality audio entertainment on the water"}, {"title": "New motor & adaptor harnesses", "detail": "Improves performance and compatibility with various accessories"},{"title": "SUN TRACKER FLARE touchscreen gauge display & 12-button switch panel", "detail": "Offers modern, easy-to-use navigational and control features"}, {"title": "Wet Sounds stereo with Bluetooth & two 6.5\\" upholstery speakers", "detail": "Ensures high-quality audio entertainment on the water"}, {"title": "New motor & adaptor harnesses", "detail": "Improves performance and compatibility with various accessories"}]}'
       }
       const walkaroundResponse = {
         messages:
-          '{"result": [{"title": "Driver Console", "detail": "draulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight."}, {"title": "Seating Capacity", "detail": "Accommodates up to 11 passengers in a feature-rich interior, ensuring comfort during full days of cruising and adventure.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Entertainment System", "detail": "Equipped with a powerful KICKER® Bluetooth stereo system and an advanced phone management station for all-day entertainment.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Storage Solutions", "detail": "Plentiful storage options are available for all your gear, keeping the deck clear and organized.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Water Sports Features", "detail": "Comes with a removable ski tow pylon for water sports and adventure."}, {"title": "Swim Platforms", "detail": "Features aft swim platforms with a boarding ladder, making it easy to access the water."}]}'
+          '{"result": [{"title": "Driver Console", "detail": "draulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight asdfsafdsfsdfaf."}, {"title": "Seating Capacity", "detail": "Accommodates up to 11 passengers in a feature-rich interior, ensuring comfort during full days of cruising and adventure.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Entertainment System", "detail": "Equipped with a powerful KICKER® Bluetooth stereo system and an advanced phone management station for all-day entertainment.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Storage Solutions", "detail": "Plentiful storage options are available for all your gear, keeping the deck clear and organized.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Water Sports Features", "detail": "Comes with a removable ski tow pylon for water sports and adventure."}, {"title": "Swim Platforms", "detail": "Features aft swim platforms with a boarding ladder, making it easy to access the water."}]}'
       }
 
       if (valuePropositionsResponse) {
@@ -166,13 +166,13 @@ const ProductInformation: React.FC = () => {
                     border: '2px solid #1d262a !important' ,
                     selectors: {
                       ':hover': {
-                        background: 'transparent !important'
+                        background: '#1d262a !important'
                       },
                       ':active': {
-                        background: 'transparent'
+                       background: '#1d262a !important'
                       },
                       ':focus': {
-                        background: 'transparent'
+                        background: '#1d262a !important'
                       }
                     }
                   }
@@ -214,13 +214,13 @@ const ProductInformation: React.FC = () => {
                     boxShadow: 'none',
                     selectors: {
                       ':hover': {
-                        background: 'transparent !important'
+                        background: '#1d262a !important'
                       },
                       ':active': {
-                        background: '#202a2f'
+                        background: '#1d262a !important'
                       },
                       ':focus': {
-                        background: 'transparent'
+                        background: '#1d262a !important'
                       }
                     }
                   }
@@ -248,7 +248,7 @@ const ProductInformation: React.FC = () => {
           className={selectedOption === 'WalkAround' ? style.contentStackContainerWalkthrough :style.contentMainStackContainer} style={{ justifyContent: selectedOption === 'WalkAround' ? 'center' : '' }}>
           <Stack
             style={{ height: isLoading ? "100%" : "" }}
-            className={style.contentStackContainer}
+            className={selectedOption !== 'WalkAround' ? style.contentStackContainer : style.walkThroughStackContainer}
           // style={{ height:selectedOption==="WalkAround" ? "70%":"" ,width: "100%", display: "flex", flexDirection: "column", flexWrap: "wrap", flexFlow: "column", overflow: "hidden", alignItems: "center",justifyContent:selectedOption === 'WalkAround' ?"center":"flex-start", padding: selectedOption === 'WalkAround' ? "0px" : "0px" }}
           // tokens={{ childrenGap: 10 }}
           // styles={{root:{
