@@ -8,7 +8,7 @@
     cursor: pointer;
     color: #FFFFFF;
     position: absolute;
-    right: -10px;
+    right: 30px;
     z-index: 5;
 }
  
@@ -68,7 +68,7 @@
     align-items: flex-end;
     justify-content: center;
     width: 100%;
-    padding: 0px 50px;
+    padding: 0px 30px;
 }
  
 .buttonContainer {
@@ -119,7 +119,7 @@
     margin: 0 auto;
 }
 .mainContentStackContainer {
-    flex: 0 0 65%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -133,41 +133,30 @@
     gap: 50px;
     position: relative;
     width: 100%;
+    padding: 0 30px;
 }
 @media all and (orientation=portrait){
     .desktopTextField {
         display: none;
     }
-    .mainStackContainer{
-        max-width: 1040px;
-        width: 100%;
-        gap: 0;
-    }
     .mainContentStackContainer{
         flex: 0 0 100%;
-        height: calc(100vh - 200px);
+        height: calc(100vh - 150px);
         overflow-y: auto;
         margin-top: 0;
     }
     .footer {
         display: flex;
     }
-    .resetDiv {
-        right: 30px;
-    }
 
 }
 
 @media all and (max-width:575px){
-    .contentStackContainer {
-        padding: 30px 20px 0px 20px;
-    }
+
     .mainStackTags {
         gap: 10px;
     }
-    .footerMainStack {
-        padding: 0px 20px;
-    }
+
     .stackitem {
         width: auto;
         min-width: calc(33.33% - 7px);
