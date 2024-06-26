@@ -9,6 +9,8 @@ interface Props {
   placeholder: string,
   onButtonClick?: () => void;
   promptValue:string,
+  text: string,
+  setText?: (value: string) => void;
   allowBorder?: boolean,
   isButtonRequired?: boolean
   onFocus?: () => void;
@@ -17,7 +19,7 @@ interface Props {
   isButtonEnabled?:boolean
 }
  
-const DesktopTextField: React.FC<Props> = ({ placeholder, onButtonClick,  promptValue,allowBorder = false, isButtonRequired = true, onFocus, onBlur, isTextFieldFocused = false,isButtonEnabled=false }) => {
+const DesktopTextField: React.FC<Props> = ({ placeholder, onButtonClick, text,setText, promptValue,allowBorder = false, isButtonRequired = true, onFocus, onBlur, isTextFieldFocused = false,isButtonEnabled=false }) => {
   const containerStyle: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
@@ -48,7 +50,7 @@ const DesktopTextField: React.FC<Props> = ({ placeholder, onButtonClick,  prompt
  
   const handleChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
     setInputText(newValue || '');
-    // setText?.(newValue || '');
+    setText?.(newValue || '');
   };
   const [inputText, setInputText] = useState<string>("");
   const navigate = useNavigate();
@@ -59,7 +61,7 @@ const DesktopTextField: React.FC<Props> = ({ placeholder, onButtonClick,  prompt
     event.stopPropagation();
     event.preventDefault();
     setIsButtonClicked(true);
-    const inputPayload = promptValue + ` ${inputText}`;
+    const inputPayload = promptValue + ` ${text}`;
     appStateContext?.dispatch({ type: 'SET_PROMPT_VALUE', payload: inputPayload })
     navigate("recommendations");
     setIsButtonClicked(false);
@@ -94,7 +96,7 @@ const DesktopTextField: React.FC<Props> = ({ placeholder, onButtonClick,  prompt
           <TextField
             placeholder={placeholder}
             borderless
-            value={inputText}
+            value={text}
             resizable={false}
             multiline
             rows={14}
