@@ -2,6 +2,12 @@
     overflow: hidden;
     width: 100%;
     max-width: 1040px;
+    padding: 50px 0 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    min-height: 100vh;
 }
  
 .headerMainStackContainer {
@@ -28,10 +34,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex: 1; 
+    /* justify-content: center; if dont want to add it by isloading conditionaly*/
 }
-.walkThroughStackContainer{
-    min-height: 350px;
+.contentStackContainerWalkthrough {
+    padding: 20px 0px 20px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    flex: 1;
 }
+
+.walkThroughStackContainer {
+    max-width: 1040px;
+    width: 100%;
+    padding: 0px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1; 
+}
+
 .contentStackContainer {
     max-width: 1040px;
     padding: 0px 30px;
@@ -41,15 +66,14 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
-
-.contentStackContainerWalkthrough {
-    padding: 40px 0;
-    min-height: calc(100vh - 350px);
-}
  
 .footerMainStackContainer {
     color: #fff;
     text-align: center;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-top: auto;
 }
  
@@ -66,8 +90,8 @@
     display: flex;
     width: 100%;
     padding: 0px;
-    align-items: flex-start;
-    padding: 0 0 10px;
+    align-items: center;
+    padding: 0 0 8px;
 }
  
 .headingText {
@@ -80,7 +104,8 @@
  
 .button {
     width: 100%;
-    font-size: large;
+    font-size: 20px;
+    font-weight: 600;
     border-radius: 10px;
     padding: 30px;
     background: black;
@@ -94,6 +119,7 @@
 
     .mainStackContainer {
         width: 100%;
+        padding: 30px 0 20px 0;
     }
 }
 @media all and (max-width: 767px) {
@@ -104,14 +130,14 @@
         flex-wrap: nowrap;
     }
  
-    /* .button {
-        width: 100%;
-        margin-top: 20px;
-        height: 56px;
-    } */
- 
     .headingText {
         font-size: 18px;
         font-weight: 600;
+    }
+
+    .button {
+        font-size: 18px;
+        font-weight: 600;
+        padding: 25px;
     }
 }

@@ -14,5 +14,9 @@
 @media all and (orientation=portrait){
     .contentMainStackContainer {
         width: 100%;
-    }
+}
+.contentStackContainer {
+    padding: 0px 20px;
+
+}
 }
