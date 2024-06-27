@@ -60,22 +60,22 @@ const ProductInformation: React.FC = () => {
       appStateContext?.dispatch({ type: 'SET_VALUE_PROPOSITION_LOADING', payload: true })
       appStateContext?.dispatch({ type: 'SET_WALKTHROUGH_LOADING', payload: true })
 
-      // const valuePropositionsResponse = await getValuePropositions(templete2(selectedboat || "", selectedbrand || ""), conversationId || "")
-      const valuePropositionsResponse = {
-        messages:
-          '{"result": [{"title": "SUN TRACKER FLARE touchscreen gauge", "detail": "Offers modern, easy-to-use navigational and control features. Offers modern, easy-to-use navigational and control"}, {"title": "Wet Sounds stereo with Bluetooth & two 6.5\\" upholstery speakers", "detail": "Ensures high-quality audio entertainment on the water"}, {"title": "New motor & adaptor harnesses", "detail": "Improves performance and compatibility with various accessories"},{"title": "SUN TRACKER FLARE touchscreen gauge display & 12-button switch panel", "detail": "Offers modern, easy-to-use navigational and control features"}, {"title": "Wet Sounds stereo with Bluetooth & two 6.5\\" upholstery speakers", "detail": "Ensures high-quality audio entertainment on the water"}, {"title": "New motor & adaptor harnesses", "detail": "Improves performance and compatibility with various accessories"}]}'
-      }
-      const walkaroundResponse = {
-        messages:
-          '{"result": [{"title": "Driver Console", "detail": "draulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight asdfsafdsfsdfaf."}, {"title": "Seating Capacity", "detail": "Accommodates up to 11 passengers in a feature-rich interior, ensuring comfort during full days of cruising and adventure.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Entertainment System", "detail": "Equipped with a powerful KICKER® Bluetooth stereo system and an advanced phone management station for all-day entertainment.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Storage Solutions", "detail": "Plentiful storage options are available for all your gear, keeping the deck clear and organized.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Water Sports Features", "detail": "Comes with a removable ski tow pylon for water sports and adventure."}, {"title": "Swim Platforms", "detail": "Features aft swim platforms with a boarding ladder, making it easy to access the water."}]}'
-      }
+      const valuePropositionsResponse = await getValuePropositions(templete2(selectedboat || "", selectedbrand || ""), conversationId || "")
+      // const valuePropositionsResponse = {
+      //   messages:
+      //     '{"result": [{"title": "SUN TRACKER FLARE touchscreen gauge", "detail": "Offers modern, easy-to-use navigational and control features. Offers modern, easy-to-use navigational and control"}, {"title": "Wet Sounds stereo with Bluetooth & two 6.5\\" upholstery speakers", "detail": "Ensures high-quality audio entertainment on the water"}, {"title": "New motor & adaptor harnesses", "detail": "Improves performance and compatibility with various accessories"},{"title": "SUN TRACKER FLARE touchscreen gauge display & 12-button switch panel", "detail": "Offers modern, easy-to-use navigational and control features"}, {"title": "Wet Sounds stereo with Bluetooth & two 6.5\\" upholstery speakers", "detail": "Ensures high-quality audio entertainment on the water"}, {"title": "New motor & adaptor harnesses", "detail": "Improves performance and compatibility with various accessories"}]}'
+      // }
+      // const walkaroundResponse = {
+      //   messages:
+      //     '{"result": [{"title": "Driver Console", "detail": "draulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight asdfsafdsfsdfaf."}, {"title": "Seating Capacity", "detail": "Accommodates up to 11 passengers in a feature-rich interior, ensuring comfort during full days of cruising and adventure.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Entertainment System", "detail": "Equipped with a powerful KICKER® Bluetooth stereo system and an advanced phone management station for all-day entertainment.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Storage Solutions", "detail": "Plentiful storage options are available for all your gear, keeping the deck clear and organized.Features an advanced 8” TAHOE CRUISE® digital touchscreen dashboard for unprecedented insight and control, paired with a sport steering wheel and responsive hydraulic steering."}, {"title": "Water Sports Features", "detail": "Comes with a removable ski tow pylon for water sports and adventure."}, {"title": "Swim Platforms", "detail": "Features aft swim platforms with a boarding ladder, making it easy to access the water."}]}'
+      // }
 
       if (valuePropositionsResponse) {
         const parsedDataValueProps = JSON.parse(valuePropositionsResponse?.messages);
         const valuePropositions = parsedDataValueProps?.result
         appStateContext?.dispatch({ type: 'SET_VALUE_PROPOSITION_STATE', payload: valuePropositions })
       }
-      // const walkaroundResponse = await getWalkthroughData(templete3(selectedboat || "", selectedbrand || ""), conversationId || "")
+      const walkaroundResponse = await getWalkthroughData(templete3(selectedboat || "", selectedbrand || ""), conversationId || "")
 
       if (walkaroundResponse) {
         const parsedDataWalkThrough = JSON.parse(walkaroundResponse?.messages);

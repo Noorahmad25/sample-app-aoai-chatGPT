@@ -38,11 +38,11 @@ export const dummydata: Tags = {
         {
             category: "Freshwater",
             child: [
-                { "Okeechobee": "Lake Okeechobee" },
-                { "George": "Lake George" },
-                { "Apopka": "Lake Apopka" },
-                { "Kissimmee": "Lake Kissimmee" },
-                { "Toho": "Lake Toho" },
+                { "Lake Okeechobee": "Lake Okeechobee" },
+                { "Lake George": "Lake George" },
+                { "Lake Apopka": "Lake Apopka" },
+                { "Lake Kissimmee": "Lake Kissimmee" },
+                { "Lake Toho": "Lake Toho" },
                 { "St. Johns River": "St. Johns River" },
                 { "Suwannee River": "Suwannee River" },
                 { "Caloosahatchee River": "Caloosahatchee River" },

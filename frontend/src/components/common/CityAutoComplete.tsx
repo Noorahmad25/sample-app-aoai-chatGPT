@@ -3,29 +3,29 @@ import Autosuggest from 'react-autosuggest';
 import { IconButton, PrimaryButton } from '@fluentui/react';
 import './CityAutoComplete.css';
 import { Send24Filled, Send28Filled } from '@fluentui/react-icons';
-
+ 
 interface CityAutocompleteInputProps {
   suggestions: string[];
   setSelectedValue: (selected: string) => void;
-  handleSave: () => void
+  handleSave: () => void;
 }
-
+ 
 const CityAutocompleteInput: React.FC<CityAutocompleteInputProps> = ({ suggestions, setSelectedValue, handleSave }) => {
   const [value, setValue] = useState<string>('');
   const [suggestionsList, setSuggestionsList] = useState<string[]>([]);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, { newValue }: Autosuggest.ChangeEvent) => {
+ 
+  const handleChange = (event: React.FormEvent<HTMLElement>, { newValue }: Autosuggest.ChangeEvent) => {
     setValue(newValue);
   };
-
+ 
   const handleSuggestionsFetchRequested = ({ value }: Autosuggest.SuggestionsFetchRequestedParams) => {
     setSuggestionsList(getSuggestions(value));
   };
-
+ 
   const handleSuggestionsClearRequested = () => {
     setSuggestionsList([]);
   };
-
+ 
   const getSuggestions = (value: string) => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
@@ -33,18 +33,18 @@ const CityAutocompleteInput: React.FC<CityAutocompleteInputProps> = ({ suggestio
       suggestion.toLowerCase().slice(0, inputLength) === inputValue
     );
   };
-
+ 
   const handleSuggestionSelected = (event: React.FormEvent<any>, { suggestionValue }: Autosuggest.SuggestionSelectedEventData<string>) => {
     setValue(suggestionValue);
     setSelectedValue?.(suggestionValue);
   };
-
-  const inputProps = {
+ 
+  const inputProps: Autosuggest.InputProps<string> = {
     placeholder: 'Enter City, ST (e.g., Miami, FL)',
     value,
     onChange: handleChange,
   };
-
+ 
   return (
     <div className="autocomplete-container">
       <Autosuggest
@@ -89,7 +89,6 @@ const CityAutocompleteInput: React.FC<CityAutocompleteInputProps> = ({ suggestio
               }
             }
           }
-
         }}
       >
         <Send24Filled />
@@ -97,5 +96,5 @@ const CityAutocompleteInput: React.FC<CityAutocompleteInputProps> = ({ suggestio
     </div>
   );
 };
-
+ 
 export default CityAutocompleteInput;

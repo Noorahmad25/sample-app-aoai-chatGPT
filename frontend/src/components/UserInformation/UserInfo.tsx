@@ -72,22 +72,22 @@ const UserInfo: React.FC = () => {
   };
 
   const suggestions = [
-"DANIA BEACH, FL",
-"JACKSONVILLE, FL",
-"ORLANDO, FL",
-"DESTIN, FL",
-"BRADENTON, FL",
-"FORT MYERS, FL",
-"MIAMI, FL",
-"BRADENTON, FL",
-"PORT ST. LUCIE, FL",
-"TALLAHASSEE, FL",
-"PALM BAY, FL",
-"TAMPA, FL",
-"GAINESVILLE, FL",
-"DAYTONA, FL",
-"ISLAMORADA, FL",
-  ]
+    "DANIA BEACH, FL",
+    "JACKSONVILLE, FL",
+    "ORLANDO, FL",
+    "DESTIN, FL",
+    "BRADENTON, FL",
+    "FORT MYERS, FL",
+    "MIAMI, FL",
+    "BRADENTON, FL",
+    "PORT ST. LUCIE, FL",
+    "TALLAHASSEE, FL",
+    "PALM BAY, FL",
+    "TAMPA, FL",
+    "GAINESVILLE, FL",
+    "DAYTONA, FL",
+    "ISLAMORADA, FL",
+      ]
 
   return (
     <Stack horizontalAlign='center'
