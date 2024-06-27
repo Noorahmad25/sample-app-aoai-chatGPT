@@ -11,7 +11,7 @@ import loading from "../../assets/loader.gif"
 import { mergeStyles } from '@fluentui/react/lib/Styling';
 import BackButton from '../BackButton';
 import Image1 from "../../assets/BlackHullRedAccentsRedBimini_BMT-6911_main.avif"
-
+import NoDataGif from "../../assets/noData.gif"
 import R250LE3 from  "../../assets/LE35_BMT-6805_alt1.jpeg"
 import R250DL3 from  "../../assets/DL34_BMT-6803_alt1.jpeg"
 import R230DL3 from  "../../assets/DL37_BMT-6802_alt1.jpeg"
@@ -38,6 +38,7 @@ import SF22 from  "../../assets/Black_BMT-6799_main.jpeg"
 import SF22XP3 from  "../../assets/Caribou_BMT-6800_alt1.jpeg"
 import SF24XP3 from  "../../assets/Caribou_BMT-6801_main.avif"
 import SFB20 from  "../../assets/IndigoBlue_BMT-6795_main.jpeg"
+import PrimaryButtonComponent from '../common/PrimaryButtonComponent';
 
 
 const boatImages: {[key:string]: string} = {
@@ -213,7 +214,6 @@ const About: React.FC = () => {
         for (const key in boatImages) {
             const normalizedKey = normalizeString(key);
             const matchScore = calculateMatchScore(normalizedKey, modelParts);
-            console.log(normalizedBrand,normalizedModel,modelParts,matchScore,normalizedKey)
             if (matchScore > bestMatchScore && bestMatchScore  > 2) {
                 bestMatchScore = matchScore;
                 bestMatchKey = key;
@@ -359,9 +359,12 @@ const About: React.FC = () => {
                         ))}
                     </Stack>
                     {dummyData && dummyData.length === 0 && (
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
-                            <Text style={{ fontWeight: "bold", color: "#FFFFFF" }} variant="xLarge" >No Recommendations found</Text>
-                        </div>
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "center",height: "calc(100vh - 100px)" ,flexDirection:"column"}}>
+                        <img src={NoDataGif} alt="Logo"  style={{opacity:"0.3",width:"100px",marginBottom:10}} />
+                        <Text className={commonStyle.noDataText} style={{textAlign:'center',padding:"0px 20px",marginBottom:10}}>We couldn't find any boats that meet your needs.</Text>
+                        <Text className={commonStyle.noDataText} style={{textAlign:'center',padding:"0px 20px",marginBottom:20}}>Please try different inputs.</Text>
+                        <PrimaryButtonComponent label="Go Back" onClick={()=>navigate("/")} disabled={false} width='fit-content'/>
+                    </div>
                     )}
                 </Stack>
             )}
